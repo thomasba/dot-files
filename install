@@ -84,7 +84,7 @@ backup_file "~/.zshrc"
 symlink "~/.zsh" "${MY_PATH}/zsh"
 if [ -d "${MY_PATH}/opt/oh-my-zsh/.git" ] ; then
 	cecho green "  + Pulling oh-my-zsh ..."
-	(cd "${MY_PATH}/opt/oh-my-zsh" && git pull)
+	(cd "${MY_PATH}/opt/oh-my-zsh" && git pull -q)
 else
 	cecho green "  + Cloning oh-my-zsh ..."
 	git clone -q https://github.com/robbyrussell/oh-my-zsh.git "${MY_PATH}/opt/oh-my-zsh"
