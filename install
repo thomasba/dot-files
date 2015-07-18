@@ -10,6 +10,8 @@ BACKUP_DIR="backup-$(date '+%Y-%m-%d_%H-%M-%S')"
 MY_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 CONFIG_MY_PATH="${MY_PATH/$HOME/\$\{HOME\}}"
 
+mkdir "$BACKUP_DIR"
+
 function cecho() {
 	if [ -z "$2" ] ; then
 		echo "$1"
