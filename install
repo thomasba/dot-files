@@ -48,7 +48,7 @@ function symlink() {
 }
 function ask() {
 	cecho white "  ? Install file '$1'? [N/y] "
-	input c
+	read c
 	if [ "$c" == "y" -o "$c" == "Y" ] ; then
 		backup_file "$1"
 		symlink "$1" "$2"
