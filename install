@@ -145,6 +145,9 @@ if [ "$MTYPE" == "PC" ] ; then
 	ask "~/.xinitrc" "${MY_PATH}/xinitrc"
 	ask "~/.pentadactylrc" "${MY_PATH}/pentadactylrc"
 	ask "~/.gitconfig" "${MY_PATH}/gitconfig"
+else
+	backup_file "~/.gitconfig"
+	symlink "~/.gitconfig" "${MY_PATH}/gitconfig"
 fi
 
 backup_file "~/bin"
