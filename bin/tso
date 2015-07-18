@@ -1,0 +1,59 @@
+#!/bin/bash
+
+IFS="
+"
+
+usage() {
+	echo "Usage:"
+	echo "  $0 [-n #] <dir>"
+	echo ""
+	echo "  -n <N>     Quality 1..10 (default: 3.0"
+	echo ""
+	echo "Example:"
+	echo "  ~/bin/prepare_audio.sh ; rm ./*.(ogg|mp3) ; mv smalleroggs/* . ; rm -r smalleroggs"
+}
+
+QUALITY="3.0"
+
+while getopts n:h opt ; do
+	case "$opt" in
+		\-)   break ;;
+		[hH]) usage ; exit ;;
+		n)    QUALITY=$OPTARG ;;
+	esac
+done
+shift $((OPTIND - 1))
+
+DIR="$(pwd)"
+if [ -d "$1" ] ; then
+	DIR="$1"
+fi
+
+mkdir -p "$DIR/smalleroggs"
+TMP="$(mktemp)"
+
+find "$DIR" -maxdepth 1 -iname '*.ogg' -o -iname '*.mp3' -o -iname '*.flac'|while read FILE ; do
+	NAME=$( basename "$FILE" )
+	echo "Processing \"$NAME\"..."
+	case $FILE in 
+		*\.ogg)
+			oggdec "$FILE" -o "$TMP"
+			oggenc -q "$QUALITY" -o "$DIR/smalleroggs/$NAME" "$TMP"
+			if [ $? -eq 0 ] ; then
+				vorbiscomment -l "$FILE" | vorbiscomment -w -c /dev/stdin "$DIR/smalleroggs/$NAME"
+			fi
+			;;
+		*\.mp3)
+			mp32ogg --quality "$QUALITY" "$FILE"
+			mv "${FILE/.mp3/.ogg}" "$DIR/smalleroggs"
+			;;
+		*\.flac)
+			oggenc -q "$QUALITY" -o "$DIR/smalleroggs/${NAME/.flac/.ogg}" "$FILE"
+			;;
+		*)
+			echo "don’t know how to handle '$FILE'..."
+			;;
+	esac
+done
+
+rm "$TMP"

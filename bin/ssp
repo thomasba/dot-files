@@ -1,0 +1,35 @@
+#!/bin/bash
+
+hosts=()
+i=0
+
+# print_host <name> <hostname> <cluster-ip>
+function print_host() {
+	let i=i+1
+	IP1=$(dig +short $2|tail -n1)
+	hosts[$i]="$2"
+	if [[ "$IP1" == "$3" ]] ; then
+		echo "  $i) $1 [$IP1] (active)"
+	else
+		echo "  $i) $1 [$IP1]"
+	fi
+}
+
+ZEUS=$(dig +short zeus.lima-premium.de|tail -n1)
+echo "zeus: [$ZEUS]"
+print_host "megatron" "megatron.trafficplex.de" $ZEUS
+print_host "optimusprime" "optimusprime.trafficplex.de" $ZEUS
+
+HERA=$(dig +short hera.lima-premium.de|tail -n1)
+echo "hera: [$HERA]"
+print_host "starscream" "starscream.trafficplex.de" $HERA
+print_host "bumblebee" "bumblebee.trafficplex.de" $HERA
+
+echo -n "> "
+read choice
+while [ $choice -lt 1 -o $choice -gt $i ] ; do
+	echo -n "> "
+	read choice -p "> "
+done
+
+ssh ${hosts[$choice]}

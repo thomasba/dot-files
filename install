@@ -1,0 +1,139 @@
+#!/bin/bash
+
+echo "#########################"
+echo "#                       #"
+echo "#  installing dotfiles  #"
+echo "#                       #"
+echo "#########################"
+
+BACKUP_DIR="backup-$(date '+%Y-%m-%d_%H-%M-%S')"
+MY_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+CONFIG_MY_PATH="${MY_PATH/$HOME/\$\{HOME\}}"
+
+function cecho() {
+	if [ -z "$2" ] ; then
+		echo "$1"
+	else
+		case $1 in
+			red)    echo -e "\e[0;31m$2\e[0m" ;;
+			green)  echo -e "\e[0;32m$2\e[0m" ;;
+			yellow) echo -e "\e[0;33m$2\e[0m" ;;
+			cyan)   echo -e "\e[1;36m$2\e[0m" ;;
+			purple) echo -e "\e[0;35m$2\e[0m" ;;
+			white)  echo -e "\e[1;37m$2\e[0m" ;;
+			*)      echo -e "\e[0;37m$2\e[0m" ;;
+		esac
+	fi
+}
+function backup_file() {
+	file="${1/\~/$HOME}"
+	if [ -e "$file" ] ; then
+		if [ -d "$file" ] ; then
+			cecho purple "  - Moving old '$file' directory ..."
+		else
+			cecho purple "  - Moving old '$file' file ..."
+		fi
+		mv "$file" "${BACKUP_DIR}/$(basename "${file}")"
+	else
+		cecho yellow "  ! File '$file' not found! "
+	fi
+}
+function symlink() {
+	# usage: symlink <name> <destination>
+	name="${1/\~/$HOME}"
+	cecho green "  + Creating symlink to '$2' ..."
+	ln -s $2 $name
+}
+
+#######
+# vim #
+#######
+
+cecho cyan "Installing vim config ..."
+backup_file "~/.vim"
+backup_file "~/.vimrc"
+symlink "~/.vim" "${MY_PATH}/vim"
+symlink "~/.vimrc" "${MY_PATH}/vim/vimrc"
+if command -v vim >/dev/null 2>&1; then
+	cecho green "  + Installing plugins ... "
+	vim -nE +"colorscheme default" +PluginInstall +qall
+else
+	cecho yellow "  ! Vim is not installed!"
+	cecho yellow "  ! to install the plugins execute:"
+	cecho yellow "  ! vim -nE +\"colorscheme default\" +PluginInstall +qall"
+fi
+
+#######
+# zsh #
+#######
+
+cecho cyan "Installing zsh config"
+backup_file "~/.zsh"
+backup_file "~/.zshrc"
+symlink "~/.zsh" "${MY_PATH}/zsh"
+if [ -d "${MY_PATH}/opt/oh-my-zsh/.git" ] ; then
+	cecho green "  + Pulling oh-my-zsh ..."
+	(cd "${MY_PATH}/opt/oh-my-zsh" && git pull)
+else
+	cecho green "  + Cloning oh-my-zsh ..."
+	git clone -q https://github.com/robbyrussell/oh-my-zsh.git "${MY_PATH}/opt/oh-my-zsh"
+fi
+while [ ! "$MTYPE" == "PC" -a ! "$MTYPE" == "SERVER" ] ; do
+	cecho white "Is this a server of a PC? [s|p] > "
+	read mt
+	case $mt in
+		[Ss]*)
+			MTYPE="SERVER";;
+		[Pp]*)
+			MTYPE="PC";;
+		*)
+			cecho red "  ! Invalid input";;
+	esac
+done
+cecho green "  + Creating .zshrc ... "
+(
+	echo "# Path to your oh-my-zsh configuration."
+	echo "ZSH=${CONFIG_MY_PATH}/opt/oh-my-zsh"
+	echo "# current user"
+	echo "export DEFAULT_USER=\"\$(whoami)\""
+	echo "# machine type"
+	echo "export MTYPE=\"$MTYPE\""
+	echo "# load zshrc"
+	echo "source \${HOME}/.zsh/zshrc"
+) > ~/.zshrc
+
+########
+# tmux #
+########
+
+cecho cyan "Installing tmux config"
+backup_file "~/.tmux.conf"
+symlink "~/.tmux.conf" "${MY_PATH}/tmux/tmux.conf"
+
+######
+# i3 #
+######
+
+cecho cyan "Installing i3 config"
+if [ "$MTYPE" == "PC" ] ; then
+	backup_file "~/.i3"
+	backup_file "~/.i3status.conf"
+	symlink "~/.i3" "${MY_PATH}/i3"
+	symlink "~/.i3status.conf" "${MY_PATH}/i3/i3status.conf"
+else
+	cecho yellow "  > skipping "
+fi
+
+###############
+# other stuff #
+###############
+cecho cyan "Symlinking other stuff ..."
+
+if [ "$MTYPE" == "PC" ] ; then
+	backup_file "~/.xinitrc"
+	backup_file "~/.pentadactylrc"
+	symlink "~/.xinitrc" "${MY_PATH}/xinitrc"
+	symlink "~/.pentadactylrc" "${MY_PATH}/pentadactylrc"
+fi
+
+symlink "~/bin" "${MY_PATH}/bin"

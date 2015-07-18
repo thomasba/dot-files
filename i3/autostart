@@ -1,0 +1,18 @@
+#!/bin/bash
+
+nm-applet --sm-disable &
+dropbox start &
+owncloud&
+lxpolkit &
+
+pidof pa-applet
+if [ $? -eq 1 ] ; then
+	pa-applet &
+fi
+
+start-pulseaudio-x11 &
+pamac-tray &
+xfce4-clipman &
+gnome-keyring-daemon --start --daemonize --components=pkcs11,secrets,ssh,gpg &
+xset r rate 400 30
+sleep 2 && xmodmap ~/.i3/speedswapper &

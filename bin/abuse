@@ -1,0 +1,76 @@
+#!/usr/bin/env ruby
+require 'getopt/std'
+require 'terminal-table'
+require 'whois'
+
+headings = ["weight", "email"]
+$emails  = []
+$counter  = 0
+
+opt = Getopt::Std.getopts("hHpl:w")
+
+if ( (opt["l"] and ( not (/^[1-9][0-9]*$/.match(opt["l"])) or opt["l"].to_i < 1 ) ) or opt["h"] or opt["H"] )
+    puts "#{$0} [options] [ip|hostname]"
+    puts "  -p          No table, just text"
+    puts "  -l <lines>  Maximum lines"
+    puts "  -w          only matches with highest priority"
+    exit 0
+end
+
+def insert(value, email)
+    if $emails.select{|a| a[1] == email}.count == 0
+        $emails.push( [value + $counter, email] )
+        $counter = $counter + 1
+    elsif ( $emails.select{|a| a[1] == email}[0][0] > value+$counter )
+        $emails.select{|a| a[1] == email}[0][0] = value+$counter
+        $counter = $counter + 1
+    end
+end
+
+if ( ARGV.length == 1 )
+    w = Whois::Client.new
+    input = w.lookup(ARGV[0]).to_s
+else
+    input = ARGF
+end
+
+
+input.each_line do |line|
+    line = line.force_encoding("BINARY").encode("UTF-8", invalid: :replace, undef: :replace, replace: "?").force_encoding("UTF-8").gsub("\n",'')
+
+    if ( /% Abuse contact for '.*' is '(?<mail>[\-\w.]+@([a-z0-9][a-z\-0-9]+\.)+[a-z]{2,4})'/i =~ line )
+        insert(0, mail.downcase)
+    elsif ( /^OrgAbuseEmail:\s+(?<mail1>[\-\w.]+@([a-z0-9][a-z\-0-9]+\.)+[a-z]{2,4})/i =~ line )
+        insert(100000, mail1.downcase)
+    elsif ( /^abuse\-mailbox:\s+(?<mail2>[\-\w.]+@([a-z0-9][a-z\-0-9]+\.)+[a-z]{2,4})/i =~ line )
+        insert(200000, mail2.downcase)
+    elsif ( /^RAbuseEmail:\s+(?<mail3>[\-\w.]+@([a-z0-9][a-z\-0-9]+\.)+[a-z]{2,4})/i =~ line )
+        insert(300000, mail3.downcase)
+    elsif ( /^OrgTechEmail:\s+(?<mail4>[\-\w.]+@([a-z0-9][a-z\-0-9]+\.)+[a-z]{2,4})/i =~ line )
+        insert(400000, mail4.downcase)
+    elsif ( /e\-?mail.*(?<mail5>abuse@([a-z0-9][a-z\-0-9]+\.)+[a-z]{2,4})/i =~ line )
+        insert(500000, mail5.downcase)
+    elsif ( /(?<mail6>[\-\w.]+@([a-z0-9][a-z\-0-9]+\.)+[a-z]{2,4})/i =~ line )
+        insert(700000, mail6.downcase)
+    end
+end
+
+$emails = $emails.sort_by {|a,b| a[0] <=> b[0]}
+
+if opt["l"]
+    $emails = $emails.first(opt["l"].to_i)
+end
+
+if opt["w"]
+    weight = $emails.first[0]-($emails.first[0]%100000);
+    $emails.delete_if { |x| x[0]-(x[0]%100000) != weight }
+end
+
+if ( opt["p"] )
+    $emails.each do |l|
+        puts l[1]
+    end
+else
+    table = Terminal::Table.new(rows: $emails, headings: headings)
+    puts table
+end

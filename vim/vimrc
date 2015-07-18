@@ -1,0 +1,183 @@
+source ~/.vim/vundle.vim
+
+syntax on
+filetype plugin on
+filetype indent on
+filetype plugin on
+filetype plugin indent on
+
+set copyindent
+
+" delete always on backspace
+set backspace=indent,eol,start
+
+if &term =~# '^\(screen\|xterm\)$'
+    set t_Co=256
+endif
+if (&t_Co >= 255 && &term !~ '^linux$') || has("gui_running")
+	colorscheme wombat256_thomasba
+else
+	colorscheme elflord2
+endif
+
+if has("gui_running")
+	set guifont="Monospace 10"
+endif
+
+set hidden
+set number
+set numberwidth=4
+set shiftwidth=4
+set ruler
+set showmode
+set noexrc
+set noerrorbells
+set nobackup
+set wrap
+set ts=4
+set diffopt+=iwhite
+set history=50
+
+set showcmd
+set showmatch
+set smartcase
+
+set ignorecase
+set title
+set ttyfast
+set hlsearch
+set spelllang=de_de,en
+
+" move by screen lines, not by real lines - great for creative writing
+nnoremap j gj
+nnoremap k gk
+nnoremap <Up> gk
+nnoremap <Down> gj
+
+" also in visual mode
+vnoremap j gj
+vnoremap k gk
+vnoremap <Up> gk
+vnoremap <Down> gj
+
+nnoremap , :
+
+set encoding=utf-8
+set fileencodings=ucs-bom,utf-8,latin,windows-1252
+
+let g:html_prevent_copy = "fn"
+let html_use_xhtml=1
+let html_use_css=1
+
+" slightly highlight rows and columns
+"set cursorline
+"set cursorcolumn
+
+" mail
+augroup mail
+	autocmd!
+		autocmd FileType mail set textwidth=70 wrap fo=tcrq
+augroup END
+ 
+" auto completion and menu
+set wildmode=list:longest:full
+set wildmenu
+ 
+" Map keys to toggle functions
+function! MapToggle(key, opt)
+	let cmd = ':set '.a:opt.'! \| set '.a:opt."?\<CR>"
+	exec 'nnoremap '.a:key.' '.cmd
+	exec 'inoremap '.a:key." \<C-O>".cmd
+endfunction
+
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set number
+  else
+    set relativenumber
+  endif
+endfunc
+nnoremap <C-n> :call NumberToggle()<cr>
+
+command! -nargs=+ MapToggle call MapToggle(<f-args>)
+" Keys & functions
+MapToggle <F4> number
+MapToggle <F5> spell
+MapToggle <F6> paste
+MapToggle <F7> hlsearch
+MapToggle <F8> wrap
+nnoremap <F9> <c-]>
+nnoremap <F10> :!ctags -R<cr>
+nnoremap <F11> :previous<cr>
+nnoremap <F12> :next<cr>
+
+" make mcabber log pretty readable
+function! Mcabber()
+	exec ':%s/[ ]\+$//'
+	exec ':%s/^M[IR] \(\d\{4\}\)\(\d\d\)\(\d\d\)T\(\d\d:\d\d:\d\d\)Z \d\{3\}/\1-\2-\3 \4/'
+endfunction
+command! Mcabber call Mcabber()
+
+" Mail quote transforming
+nmap ;m :%s/^\(> \)\+>/\=substitute(submatch(0),'> ','>','g')/ge<cr>ggVGgq
+nmap ;h :%s/^\(> \)\+>/\=substitute(submatch(0),'> ','>','g')/ge<cr>gg/^$<cr>VGgq
+nmap ;p ?^$<cr>V/^$<cr>gqk<end>:nohl<cr>
+
+" help deobfuscate code
+function! CleanUpObfuscatedCode()
+	exec ':%s/\([{};]\)/\1\r/g'
+	exec ':%s/\\x\([0-9a-zA-Z]\{2\}\)/\=nr2char(str2nr(submatch(1),16))/g'
+	exec 'normal gg=G'
+endfunction
+command! CleanUpObfuscatedCode call CleanUpObfuscatedCode()
+
+let g:Powerline_symbols = 'unicode'
+set laststatus=2
+
+noremap <leader>y "+y
+noremap <leader>Y "+Y
+noremap <leader>p "+
+
+" Underline (Markdown Style)
+nnoremap <leader>= YpVr=
+nnoremap <leader>- YpVr-
+
+"let g:neocomplcache_enable_at_startup = 1 
+let g:indent_guides_auto_colors = 0 
+
+" Hide latex output
+let NERDTreeIgnore=['\~$','\.\(aux\|nav\|out\|snm\|toc\|vrb\|o\)$']
+
+let g:tex_flavor = "latex"
+
+" Large files >= 200
+let g:LargeFile = 200
+
+" Nooo, dont blink!!
+set guicursor=a:blinkon0
+
+let g:nerdtree_plugin_open_cmd = "xdg-open"
+let g:languagetool_jar = "/usr/share/java/languagetool/languagetool.jar"
+
+set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
+
+if has('gui_running')
+	" Make shift-insert work like in Xterm
+	map <S-Insert> <MiddleMouse>
+	map! <S-Insert> <MiddleMouse>
+endif
+let g:languagetool_lang = "de"
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:syntastic_perl_checkers = ['perl']
+let g:syntastic_enable_perl_checker = 1
+let g:syntastic_python_checkers = ['pylint']
+let g:syntastic_php_checkers = ['php']

@@ -1,0 +1,7 @@
+[user]
+	email = git@thomasba.de
+	name = thomasba
+[push]
+	default = simple
+[color]
+	ui = true

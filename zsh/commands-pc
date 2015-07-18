@@ -1,0 +1,44 @@
+eval "$(gnome-keyring-daemon --start --daemonize --components=pkcs11,secrets,ssh,gpg)"
+
+# aliases
+
+alias fuckflash='mplayer `\ls -lv /proc/$(pgrep -nf plugin)/fd/* | grep Fl | awk "{print \\$9;}" | tail -n 1`'
+alias dumpflash='mplayer `\ls -lv /proc/$(pgrep -nf plugin)/fd/* | grep Fl | awk "{print \\$9;}" | tail -n 1` -dumpstream -dumpfile'
+alias o='okular'
+alias mg="history|egrep '( m )|( m6 )'|grep -v grep|tail"
+alias m6='mplayer -channels 6'
+alias m='mplayer'
+alias p='mirage'
+alias flash=' clive --stream-exec="mplayer -really-quiet %i" --stream=10'
+alias speed='xmodmap ~/.speedswapper'
+
+
+function mac() {
+	if [ ! $# -eq 2 ] ; then
+		echo "Usagen: $0 <interface> <mac>"
+	fi
+    MAC="$2"
+    if [ "$(echo "$MAC"|sed -rn '/^([0-9a-f]{2}:){5}[0-9a-f]{2}$/p'|wc -l)" -eq 1 ] ; then
+        sudo su -c "ifconfig $1 down;ifconfig $1 hw ether '$MAC';ifconfig $1 up"
+    else
+        echo no valid mac!
+    fi
+}
+function offlineimap-solve-uuid-problem() {
+    if [ $# -ne 2 ] ; then
+        echo "Usage:"
+        echo "  $0 <account> <folder>"
+    fi
+    ACCOUNT="$1"
+    FOLDER="$2"
+    FOLDER2="$(echo $FOLDER|tr '.' '/')"
+    if [ -d ".Maildir/$ACCOUNT/$FOLDER2" -a -f ".offlineimap/Account-$ACCOUNT/LocalStatus-sqlite/$FOLDER" -a -f ".offlineimap/Repository-$ACCOUNT-local/FolderValidity/$FOLDER" ] ; then
+        rm -rv \
+            ".Maildir/$ACCOUNT/$FOLDER2" \
+            ".offlineimap/Account-$ACCOUNT/LocalStatus-sqlite/$FOLDER" \
+            ".offlineimap/Repository-$ACCOUNT-local/FolderValidity/$FOLDER"
+    else
+        echo "File or folder not found!"
+    fi
+}
+# vim: ft=zsh :

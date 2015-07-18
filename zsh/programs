@@ -1,0 +1,75 @@
+# open files in programms
+
+alias -s dia=dia
+alias -s dvi=okular
+alias -s eps=okular
+alias -s pdf=okular
+
+
+# text files
+alias -s cpp=vim
+alias -s css=vim
+alias -s csv=vim
+alias -s c=vim
+alias -s html=vim
+alias -s htm=vim
+alias -s h=vim
+alias -s java=vim
+alias -s js=vim
+alias -s php=vim
+alias -s pl=vim
+alias -s py=vim
+alias -s sql=vim
+alias -s sublime-project=vim
+alias -s tex=vim
+alias -s txt=vim
+alias -s xml=vim
+
+alias -s markdown=vim
+alias -s md=vim
+alias -s mkd=vim
+
+# office
+alias -s xls=libreoffice
+alias -s xlsx=libreoffice
+alias -s doc=libreoffice
+alias -s docx=libreoffice
+alias -s ppt=libreoffice
+alias -s pptx=libreoffice
+alias -s mpp=libreoffice
+alias -s rtf=libreoffice
+alias -s odt=libreoffice
+alias -s ods=libreoffice
+
+# video files
+alias -s avi=mplayer
+alias -s flv=mplayer
+alias -s mkv=mplayer
+alias -s mp4=mplayer
+alias -s mpeg=mplayer
+alias -s mpg=mplayer
+alias -s swf=mplayer
+alias -s vob=mplayer
+alias -s wmv=mplayer
+
+# audio files
+alias -s aac=mplayer
+alias -s flac=mplayer
+alias -s mp2=mplayer
+alias -s mp3=mplayer
+alias -s ogg=mplayer
+alias -s wav=mplayer
+alias -s wma=mplayer
+
+
+# images
+alias -s bmp=mirage
+alias -s jpeg=mirage
+alias -s jpg=mirage
+alias -s png=mirage
+alias -s tiff=mirage
+alias -s tif=mirage
+alias -s xcf=gimp
+
+
+# vim: set ft=zsh :

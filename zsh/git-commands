@@ -1,0 +1,14 @@
+function gc {
+	if [ $? -gt 0 ] ; then
+		git commit -a -m "$*"
+	else
+		git commit -a
+	fi
+}
+alias gp='git pull'
+alias gu='git push'
+alias gadd='git add'
+alias gitdiff='git log|grep commit|cut -d " " -f2|head -n 2|xargs -n 2 git diff -R|vimpager'
+function gum() {
+	git submodule foreach git pull origin master && git submodule update
+}

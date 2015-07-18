@@ -1,0 +1,11 @@
+#!/bin/bash
+z=$(($RANDOM % 6 +1))
+case $z in
+	1) echo "1: ⚀" ;;
+	2) echo "2: ⚁" ;;
+	3) echo "3: ⚂" ;;
+	4) echo "4: ⚃" ;;
+	5) echo "5: ⚄" ;;
+	6) echo "6: ⚅" ;;
+	*) echo "The dice is rollin’ and rollin’ and..."
+esac

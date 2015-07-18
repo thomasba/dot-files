@@ -1,0 +1,42 @@
+# disable xoff (ctrl+s)
+stty ixany
+stty ixoff -ixon
+
+BROWSER='elinks'
+
+alias maillog='sudo journalctl -u dovecot -u postgrey -u postfix -u opendkim'
+alias chk-starttls='openssl s_client -starttls smtp -crlf -connect'
+
+function dist_file {
+    if [ "$1" = "cp" ] ; then
+        cmd="cp"
+    elif [ "$1" = "mv" ] ; then
+        cmd="mv"
+    else
+        echo unknown action
+        exit 1
+    fi
+    if [ ! -f "$2" ] ; then
+        echo no such file
+        exit 1
+    fi
+    ADDR="$(pwgen -s 16 1)"
+    DIR="/www/t-battermann.de/main/files/$ADDR"
+    while [ -d "$DIR" ] ; do
+        ADDR="$(pwgen -s 16 1)"
+        DIR="/www/t-battermann.de/main/files/$ADDR"
+    done
+    mkdir "$DIR"
+    bn=$(basename $2)
+    $cmd "$2" "$DIR/$bn"
+    chmod 644 "$DIR/$bn"
+    echo "Link: https://t-battermann.de/files/$ADDR/$bn"
+}
+function cpwww {
+    dist_file cp "$1"
+}
+function mvwww {
+    dist_file mv "$1"
+}
+
+# vim: ft=zsh :

@@ -1,0 +1,241 @@
+# This configuration uses Mod4 and Mod3. Make sure they are mapped properly using
+# xev(1)
+# and xmodmap(1). Usually, Mod4 is Alt (Alt_L) and Mod3 is Windows (Super_L)
+
+# Tell i3 about your preferred terminal. You can refer to this as $terminal
+# later. It is recommended to set this option to allow i3 to open a terminal
+# containing the introduction on first start.
+# set $terminal /usr/bin/lilyterm -s
+set $terminal /usr/bin/evilvte
+set $mod Mod4
+
+client.background #000000
+
+# ISO 10646 = Unicode
+font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+
+# new windows with border only
+new_window 1pixel
+
+# named workspaces
+#workspace 1 chat
+#workspace 2 www
+#workspace 3 mail
+
+# Use Mouse+Mod4 to drag floating windows to their wanted position
+floating_modifier Mod4
+
+# Fullscreen (Mod4+f)
+bindcode Mod4+41 fullscreen
+
+# Stacking (Mod4+h)
+bindcode Mod4+43 layout stacking
+
+# Tabbed (Mod4+w)
+bindcode Mod4+25 layout tabbed
+
+# Default (Mod4+e)
+bindcode Mod4+26 layout default
+
+# Toggle tiling/floating of the current window (Mod4+t)
+bindsym Mod4+t floating toggle
+
+# Go into the tiling layer / floating layer, depending on whether
+# the current window is tiling / floating (Mod4+t)
+bindcode Mod4+28 focus mode_toggle
+
+# Focus (Mod4+j/k/l/;)
+bindsym Mod4+Left focus left
+bindsym Mod4+Down focus down
+bindsym Mod4+Up focus up
+bindsym Mod4+Right focus right
+
+# Focus Container (Mod3+j/k/l/;)
+#bindsym Mod3+Left focus left
+#bindsym Mod3+Down focus down
+#bindsym Mod3+Up focus up
+#bindsym Mod3+Right focus right
+
+# Snap (Mod4+Control+j/k/l/;)
+bindsym Mod4+Control+Left layout stacking
+bindsym Mod4+Control+Down layout stacking
+bindsym Mod4+Control+Up layout stacking
+bindsym Mod4+Control+Right layout stacking
+
+# Move (Mod4+Shift+j/k/l/;)
+bindsym Mod4+Shift+Left move left
+bindsym Mod4+Shift+Down move down
+bindsym Mod4+Shift+Up move up
+bindsym Mod4+Shift+Right move right
+
+# Move Container (Mod3+Shift+j/k/l/;)
+#bindsym Mod3+Shift+Left focus parent; move left
+#bindsym Mod3+Shift+Down focus parent; move down
+#bindsym Mod3+Shift+Up focus parent; move up
+#bindsym Mod3+Shift+Right focus parent; move right
+
+
+# Workspaces (Mod4+1/2/…)
+bindcode Mod4+10 workspace 1
+bindcode Mod4+11 workspace 2
+bindcode Mod4+12 workspace 3
+bindcode Mod4+13 workspace 4
+bindcode Mod4+14 workspace 5
+bindcode Mod4+15 workspace 6
+bindcode Mod4+16 workspace 7
+bindcode Mod4+17 workspace 8
+bindcode Mod4+18 workspace 9
+bindcode Mod4+19 workspace 10
+
+bindsym Mod4+x move workspace to output right
+bindsym Mod4+a workspace back_and_forth
+
+# Move to Workspaces
+bindcode Mod4+Shift+10 move workspace 1
+bindcode Mod4+Shift+11 move workspace 2
+bindcode Mod4+Shift+12 move workspace 3
+bindcode Mod4+Shift+13 move workspace 4
+bindcode Mod4+Shift+14 move workspace 5
+bindcode Mod4+Shift+15 move workspace 6
+bindcode Mod4+Shift+16 move workspace 7
+bindcode Mod4+Shift+17 move workspace 8
+bindcode Mod4+Shift+18 move workspace 9
+bindcode Mod4+Shift+19 move workspace 10
+
+# Mod4+Enter starts a new terminal
+bindcode Mod4+36 exec $terminal
+
+# mpd config
+bindcode 171 exec /usr/bin/mpc next
+bindcode 172 exec /usr/bin/mpc toggle
+bindcode 173 exec /usr/bin/mpc prev
+bindcode 174 exec /usr/bin/mpc stop
+bindsym XF86Calculator exec /usr/bin/mpc next
+
+# Mod4+Shift+q kills the current client
+bindsym Mod4+Shift+q kill
+bindsym Mod4+Shift+k kill client
+
+# Mod4+v starts dmenu and launches the selected application
+# for now, we don’t have an own launcher
+bindsym Mod4+v exec /usr/bin/dmenu_run -nb '#333' -nf '#9c9' -sb '#000' -sf '#696'
+
+bindsym Mod4+comma split vertical
+bindsym Mod4+period split horizontal
+
+#bind Mod4+26 exec /usr/bin/thunar
+
+# Mod4+Shift+e exits i3
+bindcode Mod4+Shift+26 exit
+#bind Mod4+Shift+26 exec scrot
+bindsym XF86Launch1 exec $terminal
+bindsym Mod4+c exec bashrun --toggle
+
+bindsym Mod4+b border toggle
+bindsym Mod4+o open
+
+# Mod4+Shift+r restarts i3 inplace
+
+bindsym Mod4+Shift+w reload
+
+# assign progs to workspaces
+
+assign [class="Firefox"] → 2
+assign [class="aurora"] → 2
+assign [class="Opera"] → 2
+assign [class="Midori"] → 2
+assign [class="Chromium"] → 2
+assign [class="Thunderbird"] → 3
+for_window [class="feh"] floating enable
+for_window [class="xsane"] floating enable
+
+bindsym $mod+l exec i3lock -b -d
+
+bindcode Mod4+Control+10 exec ~/bin/volume.sh 10
+bindcode Mod4+Control+11 exec ~/bin/volume.sh 20
+bindcode Mod4+Control+12 exec ~/bin/volume.sh 30
+bindcode Mod4+Control+13 exec ~/bin/volume.sh 40
+bindcode Mod4+Control+14 exec ~/bin/volume.sh 50
+bindcode Mod4+Control+15 exec ~/bin/volume.sh 60
+bindcode Mod4+Control+16 exec ~/bin/volume.sh 70
+bindcode Mod4+Control+17 exec ~/bin/volume.sh 80
+bindcode Mod4+Control+18 exec ~/bin/volume.sh 90
+bindcode Mod4+Control+19 exec ~/bin/volume.sh 100
+
+bindcode 122 exec ~/bin/volume.sh -5
+bindcode 123 exec ~/bin/volume.sh +5
+
+bindsym Mod4+g exec gvim
+
+mode "resize" {
+    # These bindings trigger as soon as you enter the resize mode
+    # They resize the border in the direction you pressed, e.g.
+    # when pressing left, the window is resized so that it has
+    # more space on its left
+    # same bindings, but for the arrow keys
+	bindsym Left        resize shrink left  5 px
+	bindsym Shift+Left  resize grow   left  5 px
+
+	bindsym Down        resize shrink down  5 px
+	bindsym Shift+Down  resize grow   down  5 px
+
+	bindsym Up          resize shrink up    5 px
+	bindsym Shift+Up    resize grow   up    5 px
+
+	bindsym Right       resize shrink right 5 px
+	bindsym Shift+Right resize grow   right 5 px
+
+    # back to normal: Enter or Escape
+	bindsym Return mode "default"
+	bindsym Caps_Lock mode "default"
+	bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+bar {
+	status_command i3status
+	i3bar_command /usr/bin/i3bar-icons
+	tray_output DVI-0
+}
+
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym o      mode "$mode_gaps_outer"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym i      mode "$mode_gaps_inner"
+}
+
+# hintergrundbild setzen:
+exec feh --bg-scale $(find ~/bg_big -iname '*.jpg' -o -iname '*.png'|sort -R|head -n1)
+exec ~/.i3/autostart
+

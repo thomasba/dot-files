@@ -1,0 +1,121 @@
+# aliases
+
+alias ta='tmux -2 attach'
+alias tmux='tmux -2'
+alias cd..='cd ..'
+alias :q='exit'
+alias e='vim'
+alias :e='vim'
+alias j='java'
+alias jj='java -jar'
+alias jc='javac'
+alias ll=' ls -al --group-directories-first'
+alias c="clear"
+alias g='gcc -Wall -pedantic'
+alias ga='gcc -Wall -pedantic -ansi'
+alias logo='exit'
+alias logout='exit'
+
+alias -g NUL="> /dev/null 2>&1"
+
+# functions
+
+function extract () {
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xvjf $1    ;;
+      *.tar.gz)    tar xvzf $1    ;;
+      *.bz2)       bunzip2 $1     ;;
+      *.rar)       unrar x $1     ;;
+      *.gz)        gunzip $1      ;;
+      *.tar)       tar xvf $1     ;;
+      *.tbz2)      tar xvjf $1    ;;
+      *.tgz)       tar xvzf $1    ;;
+      *.zip)       unzip $1       ;;
+      *.Z)         uncompress $1  ;;
+      *.7z)        7z x $1        ;;
+      *)           echo "don't know how to extract '$1'..." ;;
+    esac
+  else
+    echo "'$1' is not a valid file!"
+  fi
+}
+function mkcd () {
+    [ $# -eq 1 ] && {
+        mkdir -p "$1"
+        cd "$1"
+    } || echo "usage: mkcd <dir>"
+}
+alias myip='curl myip.paste42.de;echo'
+alias myip4='curl myipv4.paste42.de;echo'
+alias myip6='curl myipv6.paste42.de;echo'
+alias pdf14='gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile='
+alias scat='source-highlight -o STDOUT -f esc -i'
+function rot13 {
+    if [ $# -eq 9 ] ; then
+        echo "Usage: $0 <file|text>"
+        exit 1;
+    elif [ $# -eq 1 -a -f $1 -a -r $1 ]; then
+        cat $1 | tr '[N-ZA-Mn-za-m5-90-4]' '[A-Za-z0-9]'
+    else
+        echo $* | tr '[N-ZA-Mn-za-m5-90-4]' '[A-Za-z0-9]'
+    fi
+}
+function wim() {
+    if [ -n "$1" ] ; then
+        curl -s "$1"|elinks -dump -dump-charset UTF-8|vim -
+    else
+        echo "Usage:"
+        echo "  $0 <URL>"
+    fi
+}
+function expand() {
+    wget -S -O /dev/null $1 2>&1 |grep "^\s*Location"
+}
+function bigf() {
+    find . -type f -printf '%20s %p\n' | sort -nr|head -n250 | cut -b22- | tr '\n' '\000' | xargs -0 ls -laSrh
+}
+function htmltitle() {
+    if [ -n "$1" ] ; then
+        curl -s -S -L "$1" 2> /dev/null|html2 2> /dev/null |sed -rn 's_^/html/head/title=(.*)$_\1_p'
+    else
+        echo "Usage: $0 <url>"
+    fi
+}
+function printtime() {
+    perl -le 'my $t='$1'; my $s=$t%60; my $m=($t-$s)/60%60; my $h=($t-$m*60-$s)/3600%24; my $d=($t-$h*3600-$m*60-$s)/86400; printf("%d, %02d:%02d:%02d\n",$d,$h,$m,$s);'
+}
+function unix() {
+    php -r "date_default_timezone_set('Europe/Berlin');echo date('Y-m-d, H:i:s',$1).PHP_EOL;"
+}
+function 0l3() {
+	curl "http://0l3.de/api/create.plain/$1"
+}
+cp_p()
+{
+	strace -q -ewrite cp -- "${1}" "${2}" 2>&1 \
+		| awk '{
+			count += $NF
+			if (count % 10 == 0) {
+				percent = count / total_size * 100
+				printf "%3d%% [", percent
+				for (i=0;i<=percent;i++)
+				printf "="
+				printf ">"
+				for (i=percent;i<100;i++)
+					printf " "
+				printf "]\r"
+			}
+		}
+		END { print "" }' total_size=$(stat -c '%s' "${1}") count=0
+}
+
+# systemctl
+command -v systemctl > /dev/null && {
+	alias start='sudo systemctl start'
+	alias stop='sudo systemctl stop'
+	alias restart='sudo systemctl restart'
+	alias reload='sudo systemctl reload'
+	alias status='sudo systemctl status'
+}
+# vim: ft=zsh :
