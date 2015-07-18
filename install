@@ -23,6 +23,7 @@ function cecho() {
 			cyan)   echo -e "\e[1;36m$2\e[0m" ;;
 			purple) echo -e "\e[0;35m$2\e[0m" ;;
 			white)  echo -e "\e[1;37m$2\e[0m" ;;
+			ask)    echo -ne "\e[1;37m$2\e[0m" ;;
 			*)      echo -e "\e[0;37m$2\e[0m" ;;
 		esac
 	fi
@@ -47,7 +48,7 @@ function symlink() {
 	ln -s $2 $name
 }
 function ask() {
-	cecho white "  ? Install file '$1'? [N/y] "
+	cecho ask "  ? Install file '$1'? [N/y] "
 	read c
 	if [ "$c" == "y" -o "$c" == "Y" ] ; then
 		backup_file "$1"
@@ -89,7 +90,7 @@ else
 	git clone -q https://github.com/robbyrussell/oh-my-zsh.git "${MY_PATH}/opt/oh-my-zsh"
 fi
 while [ ! "$MTYPE" == "PC" -a ! "$MTYPE" == "SERVER" ] ; do
-	cecho white "  ? Is this a server of a PC? [s|p] > "
+	cecho ask "  ? Is this a server of a PC? [s|p] > "
 	read mt
 	case $mt in
 		[Ss]*)
@@ -141,11 +142,10 @@ fi
 cecho cyan "Symlinking other stuff ..."
 
 if [ "$MTYPE" == "PC" ] ; then
-	backup_file "~/.xinitrc"
-	backup_file "~/.pentadactylrc"
-	symlink "~/.xinitrc" "${MY_PATH}/xinitrc"
-	symlink "~/.pentadactylrc" "${MY_PATH}/pentadactylrc"
+	ask "~/.xinitrc" "${MY_PATH}/xinitrc"
+	ask "~/.pentadactylrc" "${MY_PATH}/pentadactylrc"
 	ask "~/.gitconfig" "${MY_PATH}/gitconfig"
 fi
 
+backup_file "~/bin"
 symlink "~/bin" "${MY_PATH}/bin"
