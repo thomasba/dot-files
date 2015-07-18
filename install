@@ -44,6 +44,14 @@ function symlink() {
 	cecho green "  + Creating symlink to '$2' ..."
 	ln -s $2 $name
 }
+function ask() {
+	cecho white "  ? Install file '$1'? [N/y] "
+	input c
+	if [ "$c" == "y" -o "$c" == "Y" ] ; then
+		backup_file "$1"
+		symlink "$1" "$2"
+	fi
+}
 
 #######
 # vim #
@@ -79,7 +87,7 @@ else
 	git clone -q https://github.com/robbyrussell/oh-my-zsh.git "${MY_PATH}/opt/oh-my-zsh"
 fi
 while [ ! "$MTYPE" == "PC" -a ! "$MTYPE" == "SERVER" ] ; do
-	cecho white "Is this a server of a PC? [s|p] > "
+	cecho white "  ? Is this a server of a PC? [s|p] > "
 	read mt
 	case $mt in
 		[Ss]*)
@@ -120,6 +128,7 @@ if [ "$MTYPE" == "PC" ] ; then
 	backup_file "~/.i3status.conf"
 	symlink "~/.i3" "${MY_PATH}/i3"
 	symlink "~/.i3status.conf" "${MY_PATH}/i3/i3status.conf"
+	ask "~/.xprofile" "${MY_PATH}/xprofile"
 else
 	cecho yellow "  > skipping "
 fi
@@ -134,6 +143,7 @@ if [ "$MTYPE" == "PC" ] ; then
 	backup_file "~/.pentadactylrc"
 	symlink "~/.xinitrc" "${MY_PATH}/xinitrc"
 	symlink "~/.pentadactylrc" "${MY_PATH}/pentadactylrc"
+	ask "~/.gitconfig" "${MY_PATH}/gitconfig"
 fi
 
 symlink "~/bin" "${MY_PATH}/bin"
