@@ -1,16 +1,14 @@
+" load plugins using vundle
 source ~/.vim/vundle.vim
 
 syntax on
-filetype plugin on
-filetype indent on
-filetype plugin on
 filetype plugin indent on
 
-set copyindent
 
 " delete always on backspace
 set backspace=indent,eol,start
 
+" set colorscheme
 if &term =~# '^\(screen\|xterm\)$'
     set t_Co=256
 endif
@@ -47,6 +45,7 @@ set title
 set ttyfast
 set hlsearch
 set spelllang=de_de,en
+set copyindent
 
 " move by screen lines, not by real lines - great for creative writing
 nnoremap j gj
@@ -134,6 +133,9 @@ command! CleanUpObfuscatedCode call CleanUpObfuscatedCode()
 let g:Powerline_symbols = 'unicode'
 set laststatus=2
 
+let mapleader = "-"
+let maplocalleader = "\\"
+
 noremap <leader>y "+y
 noremap <leader>Y "+Y
 noremap <leader>p "+
@@ -147,6 +149,7 @@ let g:indent_guides_auto_colors = 0
 
 " Hide latex output
 let NERDTreeIgnore=['\~$','\.\(aux\|nav\|out\|snm\|toc\|vrb\|o\)$']
+let g:nerdtree_plugin_open_cmd = "xdg-open"
 
 let g:tex_flavor = "latex"
 
@@ -156,8 +159,6 @@ let g:LargeFile = 200
 " Nooo, dont blink!!
 set guicursor=a:blinkon0
 
-let g:nerdtree_plugin_open_cmd = "xdg-open"
-let g:languagetool_jar = "/usr/share/java/languagetool/languagetool.jar"
 
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 
@@ -167,6 +168,7 @@ if has('gui_running')
 	map! <S-Insert> <MiddleMouse>
 endif
 let g:languagetool_lang = "de"
+let g:languagetool_jar = "/usr/share/java/languagetool/languagetool.jar"
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -181,3 +183,13 @@ let g:syntastic_perl_checkers = ['perl']
 let g:syntastic_enable_perl_checker = 1
 let g:syntastic_python_checkers = ['pylint']
 let g:syntastic_php_checkers = ['php']
+" syntastic
+let g:syntastic_html_tidy_ignore_errors = ['warning: <div> proprietary attribute "data-role"', '<input> proprietary attribute "required"', '<input> proprietary attribute "pattern"', '<select> proprietary attribute "required"']
+
+" vimux
+" Set tmux pane percentage
+let g:VimuxHeight = "30"
+" Split tmux pane horizontally
+let g:VimuxOrientation = "h"
+" Prompt for a command to run
+noremap <leader>vp :VimuxPromptCommand<CR>

@@ -26,7 +26,6 @@ Plugin 'vim-scripts/JSON.vim'
 
 " Files
 Plugin 'scrooloose/nerdtree'
-"Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'kien/ctrlp.vim'
 if executable('ag')
 	Plugin 'rking/ag.vim'
@@ -43,23 +42,26 @@ Plugin 'vim-scripts/LanguageTool'
 Plugin 'thinca/vim-localrc'
 Plugin 'mtth/scratch.vim'
 Plugin 'scrooloose/syntastic'
-"Plugin 'jeetsukumaran/vim-buffergator'
 Plugin 'ntpeters/vim-airline-colornum'
 Plugin 'tpope/vim-surround'
 Plugin 'vim-scripts/tComment'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tmhedberg/matchit'
-Bundle 'chase/vim-ansible-yaml'
+Plugin 'chase/vim-ansible-yaml'
+Plugin 'jamessan/vim-gnupg'
+Plugin 'docunext/closetag.vim'
+Plugin 'lilydjwg/colorizer'
+Plugin 'Townk/vim-autoclose'
+" Interact with tmux from vim
+Plugin 'benmills/vimux'
 
 " test:
 "Plugin 'Yggdroot/indentLine'
 "Plugin 'honza/vim-snippets'
-Plugin 'lilydjwg/colorizer'
 "Plugin 'junegunn/vim-easy-align'
 "Plugin 'lervag/vimtex'
 "Plugin 'reedes/vim-pencil'
 "Plugin 'terryma/vim-multiple-cursors'
 "Plugin 'mbbill/undotree'
-Plugin 'Townk/vim-autoclose'
 
 call vundle#end()
