@@ -193,3 +193,6 @@ let g:VimuxHeight = "30"
 let g:VimuxOrientation = "h"
 " Prompt for a command to run
 noremap <leader>vp :VimuxPromptCommand<CR>
+
+" CtrlP
+nmap <C-b> :CtrlPBuffer<cr>
