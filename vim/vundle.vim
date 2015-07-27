@@ -1,8 +1,14 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-if !isdirectory(expand("~/.vim/bundle/Vundle.vim/.git"))
-    !git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+if has("win32")
+	if !isdirectory(expand("~/.vim/bundle/Vundle.vim/.git"))
+		!git clone https://github.com/gmarik/Vundle.vim.git \%USERPROFILE\%\.vim\bundle\Vundle.vim
+	endif
+else
+	if !isdirectory(expand("~/.vim/bundle/Vundle.vim/.git"))
+		!git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+	endif
 endif
 
 set rtp+=~/.vim/bundle/Vundle.vim

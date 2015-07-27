@@ -1,5 +1,10 @@
 " load plugins using vundle
-source ~/.vim/vundle.vim
+
+if has("win32")
+	source ~/vimfiles/vundle.vim
+else
+	source ~/.vim/vundle.vim
+endif
 
 syntax on
 filetype plugin indent on
@@ -77,11 +82,11 @@ augroup mail
 	autocmd!
 		autocmd FileType mail set textwidth=70 wrap fo=tcrq
 augroup END
- 
+
 " auto completion and menu
 set wildmode=list:longest:full
 set wildmenu
- 
+
 " Map keys to toggle functions
 function! MapToggle(key, opt)
 	let cmd = ':set '.a:opt.'! \| set '.a:opt."?\<CR>"
@@ -144,8 +149,8 @@ noremap <leader>p "+
 nnoremap <leader>= YpVr=
 nnoremap <leader>- YpVr-
 
-"let g:neocomplcache_enable_at_startup = 1 
-let g:indent_guides_auto_colors = 0 
+"let g:neocomplcache_enable_at_startup = 1
+let g:indent_guides_auto_colors = 0
 
 " Hide latex output
 let NERDTreeIgnore=['\~$','\.\(aux\|nav\|out\|snm\|toc\|vrb\|o\)$']
