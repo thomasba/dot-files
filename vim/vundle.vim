@@ -29,6 +29,7 @@ Plugin 'othree/html5.vim'
 Plugin 'vim-scripts/bbcode'
 Plugin 'tpope/vim-markdown'
 Plugin 'vim-scripts/JSON.vim'
+Plugin 'PProvost/vim-ps1'
 
 " Files
 Plugin 'scrooloose/nerdtree'

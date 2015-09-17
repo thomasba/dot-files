@@ -5,41 +5,60 @@ alias -s dvi=okular
 alias -s eps=okular
 alias -s pdf=okular
 
-
 # text files
+alias -s cc=vim
+alias -s coffee=vim
+alias -s conf=vim
 alias -s cpp=vim
 alias -s css=vim
 alias -s csv=vim
 alias -s c=vim
+alias -s haml=vim
 alias -s html=vim
 alias -s htm=vim
 alias -s h=vim
+alias -s ini=vim
 alias -s java=vim
+alias -s json=vim
 alias -s js=vim
+alias -s lua=vim
+alias -s patch=vim
 alias -s php=vim
 alias -s pl=vim
 alias -s py=vim
+alias -s rb=vim
+alias -s rhtml=vim
+alias -s sass=vim
+alias -s scss=vim
+alias -s sh=vim
 alias -s sql=vim
 alias -s sublime-project=vim
 alias -s tex=vim
+alias -s todo=vim
 alias -s txt=vim
+alias -s vim=vim
+alias -s xhtml=vim
 alias -s xml=vim
+alias -s yaml=vim
+alias -s yml=vim
+alias -s zsh-theme=vim
+alias -s zsh=vim
 
 alias -s markdown=vim
 alias -s md=vim
 alias -s mkd=vim
 
 # office
-alias -s xls=libreoffice
-alias -s xlsx=libreoffice
 alias -s doc=libreoffice
 alias -s docx=libreoffice
+alias -s mpp=libreoffice
+alias -s ods=libreoffice
+alias -s odt=libreoffice
 alias -s ppt=libreoffice
 alias -s pptx=libreoffice
-alias -s mpp=libreoffice
 alias -s rtf=libreoffice
-alias -s odt=libreoffice
-alias -s ods=libreoffice
+alias -s xls=libreoffice
+alias -s xlsx=libreoffice
 
 # video files
 alias -s avi=mplayer
@@ -61,15 +80,14 @@ alias -s ogg=mplayer
 alias -s wav=mplayer
 alias -s wma=mplayer
 
-
 # images
 alias -s bmp=mirage
+alias -s gif=mirage
 alias -s jpeg=mirage
 alias -s jpg=mirage
 alias -s png=mirage
 alias -s tiff=mirage
 alias -s tif=mirage
 alias -s xcf=gimp
-
 
 # vim: set ft=zsh :
