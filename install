@@ -93,6 +93,11 @@ else
 	cecho green "  . grml-zsh-config is already installed :-)"
 fi
 
+# prevent configuration dialog
+if [ ! -f "~/.zshrc" ] ; then
+	cecho yellow "  + Creating empty .zshrc"
+	echo "# empty" > ~/.zshrc
+fi
 
 symlink "~/.zsh" "${MY_PATH}/zsh"
 symlink "~/.zshrc.local" "${MY_PATH}/zsh/zshrc.local"
