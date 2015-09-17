@@ -18,6 +18,13 @@ Update existing plugin:
 
     :PluginUpdate
 
+## Screenshots
+
+tmux + zsh:  
+![tmux + zsh](screenshots/tmux-zsh.png)
+
+vim:  
+![vim](screenshots/vim.png)
 
 ### Videos
 
