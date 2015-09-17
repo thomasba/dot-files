@@ -91,13 +91,13 @@ if [ $? -ne 0 ] ; then
 	cecho yellow "  ! and remove the .zshrc file in your home directory. "
 else
 	cecho green "  . grml-zsh-config is already installed :-)"
+	# prevent configuration dialog
+	if [ ! -f "~/.zshrc" ] ; then
+		cecho green "  + Creating empty .zshrc"
+		echo "# empty" > ~/.zshrc
+	fi
 fi
 
-# prevent configuration dialog
-if [ ! -f "~/.zshrc" ] ; then
-	cecho yellow "  + Creating empty .zshrc"
-	echo "# empty" > ~/.zshrc
-fi
 
 symlink "~/.zsh" "${MY_PATH}/zsh"
 symlink "~/.zshrc.local" "${MY_PATH}/zsh/zshrc.local"
