@@ -81,14 +81,21 @@ fi
 cecho cyan "Installing zsh config"
 backup_file "~/.zsh"
 backup_file "~/.zshrc"
-symlink "~/.zsh" "${MY_PATH}/zsh"
-if [ -d "${MY_PATH}/opt/oh-my-zsh/.git" ] ; then
-	cecho green "  + Pulling oh-my-zsh ..."
-	(cd "${MY_PATH}/opt/oh-my-zsh" && git pull -q)
+
+# check if grml is installed
+grep grml\.org /etc/zsh/zshrc > /dev/null
+if [ $? -ne 0 ] ; then
+	echo "  + Installing grml ..."
+	wget -O ~/.zshrc http://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
+	cecho yellow "  ! You might wanna install grml-zsh-config using your packet manager"
+	cecho yellow "  ! and remove the .zshrc file in your home directory. "
 else
-	cecho green "  + Cloning oh-my-zsh ..."
-	git clone -q https://github.com/robbyrussell/oh-my-zsh.git "${MY_PATH}/opt/oh-my-zsh"
+	cecho green "  . grml-zsh-config is already installed :-)"
 fi
+
+
+symlink "~/.zsh" "${MY_PATH}/zsh"
+symlink "~/.zshrc.local" "${MY_PATH}/zsh/zshrc.local"
 while [ ! "$MTYPE" == "PC" -a ! "$MTYPE" == "SERVER" ] ; do
 	cecho ask "  ? Is this a server of a PC? [s|p] > "
 	read mt
@@ -101,17 +108,15 @@ while [ ! "$MTYPE" == "PC" -a ! "$MTYPE" == "SERVER" ] ; do
 			cecho red "  ! Invalid input";;
 	esac
 done
-cecho green "  + Creating .zshrc ... "
+cecho green "  + Creating .zshrc.pre ... "
 (
 	echo "# Path to your oh-my-zsh configuration."
-	echo "ZSH=${CONFIG_MY_PATH}/opt/oh-my-zsh"
+	echo "ZSH=${CONFIG_MY_PATH}/.zsh"
 	echo "# current user"
 	echo "export DEFAULT_USER=\"\$(whoami)\""
 	echo "# machine type"
 	echo "export MTYPE=\"$MTYPE\""
-	echo "# load zshrc"
-	echo "source \${HOME}/.zsh/zshrc"
-) > ~/.zshrc
+) > ~/.zshrc.pre
 
 ########
 # tmux #

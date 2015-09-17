@@ -1,3 +1,12 @@
+if zrcautoload promptinit && promptinit 2>/dev/null ; then
+	source ~/.zsh/prompt_tba_setup
+	prompt_themes+=( tba  )
+   	prompt_themes=( "${(@on)prompt_themes}" )
+	prompt tba
+else
+	print '-!- Notice: no promptinit available :('
+fi
+
 source $HOME/.zsh/commands
 source $HOME/.zsh/programs
 case "$MTYPE" in

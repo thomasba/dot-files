@@ -25,6 +25,8 @@ prompt_tba_setup () {
 	local rpar="$parens)$text"
 	
 	local time_color="%b%F{$time_col}"
+	local red="%B%F{red}"
+	local yellow="%B%F{yellow}"
 	local hostname="%B%F{green}"
 	local user_color="%b%F{green}"
 	if [[ "$(id -u)" = "0" ]] ; then
@@ -121,9 +123,9 @@ prompt_tba_setup () {
 		    if [[ -z "${BATTPRCNT}" ]]; then
 		        PR_BATTERY=""
 		    elif [[ "${BATTPRCNT}" -lt 20 ]]; then
-		        PR_BATTERY=" ${PR_BOLD_RED}B:${BATTPRCNT}%%"
+		        PR_BATTERY=" $redB:${BATTPRCNT}%%"
 		    elif [[ "${BATTPRCNT}" -lt 40 ]]; then
-		        PR_BATTERY=" ${PR_BOLD_YELLOW}B:${BATTPRCNT}%%"
+		        PR_BATTERY=" $yellowB:${BATTPRCNT}%%"
 		    else
 		        PR_BATTERY=" B:${BATTPRCNT}%%"
 		    fi
@@ -132,7 +134,7 @@ prompt_tba_setup () {
 	
 		IS_SSH_CONN=""
 		if [ -n "$SSH_CONNECTION" ] ; then
-			IS_SSH_CONN=" ${PR_RED}⚡$PR_NO_COLOR "
+			IS_SSH_CONN=" $red⚡$PR_NO_COLOR "
 		fi
 	}
 
@@ -151,7 +153,7 @@ prompt_tba_setup () {
 $reset$time_color%\${PR_PWDLEN}<...<%~%<<\
 $reset\
 
-$parens├─($reset\${IS_SSH_CONN}$text\${PR_BATTERY}\${SCREEN}\${JOBS}%(?.. ${PR_RED}E:%?$reset)\
+$parens├─($reset\${IS_SSH_CONN}$text\${PR_BATTERY}\${SCREEN}\${JOBS}%(?.. ${red}E:%?$reset)\
 \${GITBRANCH} $parens)$reset\
 
 $parens└─[%(!.#.$)]${text} "
@@ -176,6 +178,6 @@ prompt_tba_preview () {
   fi
 }
 
-prompt_tba_setup "$@"
+#prompt_tba_setup "$@"
 
 # Vim: set ft=zsh :
