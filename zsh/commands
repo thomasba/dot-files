@@ -19,6 +19,12 @@ alias logout='exit'
 alias -g NUL="> /dev/null 2>&1"
 alias -g V="|vim -"
 alias -g R="|tr N-ZA-Mn-za-m A-Za-z"
+alias -g G="|grep"
+
+alias fucking=sudo
+whothefuckisusingport() {
+	sudo lsof -i tcp:$*
+}
 
 # functions
 
