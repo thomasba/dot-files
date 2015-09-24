@@ -105,6 +105,10 @@ nnoremap <C-n> :call NumberToggle()<cr>
 
 command! -nargs=+ MapToggle call MapToggle(<f-args>)
 " Keys & functions
+inoremap <F2> <esc>:NERDTreeToggle<cr>
+nnoremap <F2> :NERDTreeToggle<cr>
+inoremap <F3> <esc>:TagbarToggle<cr>
+nnoremap <F3> :TagbarToggle<cr>
 MapToggle <F4> number
 MapToggle <F5> spell
 MapToggle <F6> paste
@@ -143,7 +147,7 @@ let maplocalleader = "\\"
 
 noremap <leader>y "+y
 noremap <leader>Y "+Y
-noremap <leader>p "+
+noremap <leader>p "+p
 
 " Underline (Markdown Style)
 nnoremap <leader>= YpVr=
@@ -200,6 +204,10 @@ let g:VimuxHeight = "30"
 let g:VimuxOrientation = "h"
 " Prompt for a command to run
 noremap <leader>vp :VimuxPromptCommand<CR>
+
+" markdown
+let g:vim_markdown_frontmatter=1
+let g:vim_markdown_folding_disabled=1
 
 " CtrlP
 nmap <C-b> :CtrlPBuffer<cr>

@@ -21,9 +21,13 @@ Plug 'vim-scripts/apachelogs.vim', {'for': 'apachelogs'}
 Plug 'vim-scripts/syslog-syntax-file', {'for': 'messages'}
 Plug 'othree/html5.vim', {'for': ['html','php']}
 Plug 'vim-scripts/bbcode', {'for': 'bbcode'}
-Plug 'tpope/vim-markdown',{'for': 'markdown'}
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown', {'for': ['markdown', 'mkd.markdown'] }
+
+
 Plug 'vim-scripts/JSON.vim', {'for': 'json'}
 Plug 'PProvost/vim-ps1', {'for': 'ps1'}
+Plug 'kchmck/vim-coffee-script', {'for': ['coffee', 'markdown', 'mkd.markdown']}
 
 " Files
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'  }
@@ -63,6 +67,6 @@ Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
 "Plugin 'lervag/vimtex'
 "Plugin 'reedes/vim-pencil'
 "Plugin 'terryma/vim-multiple-cursors'
-"Plugin 'mbbill/undotree'
+Plug 'mbbill/undotree'
 
 call plug#end()
