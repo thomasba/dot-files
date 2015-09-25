@@ -32,5 +32,7 @@ else
 	printf "-!- zsh-syntax-highlighting not installed!"
 fi
 
-export EDITOR='vim'
+# completion
+zstyle ':completion:*:*:kill:*:processes' command "ps -u $USER -o pid,user,comm,args -w -w"
 
+export EDITOR='vim'
