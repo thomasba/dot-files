@@ -23,8 +23,6 @@ Plug 'othree/html5.vim', {'for': ['html','php']}
 Plug 'vim-scripts/bbcode', {'for': 'bbcode'}
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown', {'for': ['markdown', 'mkd.markdown'] }
-
-
 Plug 'vim-scripts/JSON.vim', {'for': 'json'}
 Plug 'PProvost/vim-ps1', {'for': 'ps1'}
 Plug 'kchmck/vim-coffee-script', {'for': ['coffee', 'markdown', 'mkd.markdown']}
@@ -40,7 +38,7 @@ endif
 
 " Utility
 Plug 'tpope/vim-speeddating'
-Plug 'Lokaltog/vim-powerline'
+Plug 'bling/vim-airline'
 Plug 'vim-scripts/Tagbar'
 Plug 'vim-scripts/loremipsum', { 'on': 'Loremipsum' }
 Plug 'vim-scripts/LanguageTool', {'on': 'LanguageToolCheck'}
@@ -56,6 +54,7 @@ Plug 'jamessan/vim-gnupg', { 'for': 'gpg' }
 Plug 'docunext/closetag.vim', { 'for': ['html','php']  }
 Plug 'lilydjwg/colorizer', { 'for': ['html','php','css','sass','scss'] }
 Plug 'Townk/vim-autoclose'
+Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 " Interact with tmux from vim
 Plug 'benmills/vimux'
 Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }

@@ -139,7 +139,9 @@ function! CleanUpObfuscatedCode()
 endfunction
 command! CleanUpObfuscatedCode call CleanUpObfuscatedCode()
 
-let g:Powerline_symbols = 'unicode'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'badwolf'
 set laststatus=2
 
 let mapleader = "-"
