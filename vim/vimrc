@@ -116,8 +116,8 @@ MapToggle <F7> hlsearch
 MapToggle <F8> wrap
 nnoremap <F9> <c-]>
 nnoremap <F10> :!ctags -R<cr>
-nnoremap <F11> :previous<cr>
-nnoremap <F12> :next<cr>
+nnoremap <F11> :bp<cr>
+nnoremap <F12> :bn<cr>
 
 " make mcabber log pretty readable
 function! Mcabber()
