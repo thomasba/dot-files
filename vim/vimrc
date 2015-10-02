@@ -131,6 +131,9 @@ nmap ;m :%s/^\(> \)\+>/\=substitute(submatch(0),'> ','>','g')/ge<cr>ggVGgq
 nmap ;h :%s/^\(> \)\+>/\=substitute(submatch(0),'> ','>','g')/ge<cr>gg/^$<cr>VGgq
 nmap ;p ?^$<cr>V/^$<cr>gqk<end>:nohl<cr>
 
+" save with sudo
+cmap w!! w !sudo tee % >/dev/null
+
 " help deobfuscate code
 function! CleanUpObfuscatedCode()
 	exec ':%s/\([{};]\)/\1\r/g'

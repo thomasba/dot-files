@@ -134,7 +134,7 @@ bindsym Mod4+c exec bashrun --toggle
 bindsym Mod4+b border toggle
 bindsym Mod4+o open
 
-# Mod4+Shift+r restarts i3 inplace
+bindsym Mod4+Shift+r restarts i3 inplace
 
 bindsym Mod4+Shift+w reload
 
@@ -196,7 +196,7 @@ bindsym $mod+r mode "resize"
 bar {
 	status_command i3blocks
 	i3bar_command /usr/bin/i3bar-icons
-	tray_output DVI-0
+	tray_output LVDS1
 }
 
 bindsym $mod+Shift+g mode "$mode_gaps"
