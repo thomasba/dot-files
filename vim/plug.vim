@@ -66,6 +66,6 @@ Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
 "Plugin 'lervag/vimtex'
 "Plugin 'reedes/vim-pencil'
 "Plugin 'terryma/vim-multiple-cursors'
-Plug 'mbbill/undotree'
+Plug 'mbbill/undotree', { 'on': ['UndotreeToggle', 'UndotreeShow'] }
 
 call plug#end()
