@@ -84,8 +84,14 @@ augroup mail
 augroup END
 
 " auto completion and menu
-set wildmode=list:longest:full
-set wildmenu
+if has("wildmenu")
+	set wildignore+=*.a,*.o
+    set wildignore+=.DS_Store,.git,.hg,.svn
+    set wildignore+=*~,*.swp,*.tmp
+	set wildmenu
+	set wildmode=list,longest,full
+	inoremap <C-f> <C-X><C-F>
+endif
 
 " Map keys to toggle functions
 function! MapToggle(key, opt)
