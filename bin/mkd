@@ -33,7 +33,7 @@ TITLE=""
 # Read options
 while getopts lphHo:t: opt ; do
 	case "$opt" in
-		\-) break;;
+		-) break;;
 		l) O_LINK=1 ;;
 		p) O_PLAIN=1 ;;
 		o) OUTFILE="$OPTARG";;
@@ -41,7 +41,7 @@ while getopts lphHo:t: opt ; do
 		[hH]) usage ;;
 	esac
 done
-shift $(expr $OPTIND - 1)
+shift $((OPTIND - 1))
 
 INFILE="$1"
 
@@ -49,42 +49,44 @@ if [ ! -f "$INFILE" ] ; then
 	usage
 fi
 
-BASENAME="$(basename $INFILE)"
-T_="$(echo -n $BASENAME|sed -re 's/\.(markdown|mkd|mk|md)$//')"
+BASENAME="$(basename "$INFILE")"
+T_="$(echo -n "$BASENAME"|sed -re 's/\.(markdown|mkd|mk|md)$//')"
 [ "$OUTFILE" = "" ] && OUTFILE="${T_}.html"
-[ "$TITLE" = "" ] && TITLE="$(echo -n ${T_}|tr '_' ' ')"
+[ "$TITLE" = "" ] && TITLE="$(echo -n "${T_}"|tr '_' ' ')"
 
 
-echo "<!DOCTYPE html>" > $OUTFILE
-echo "<html>" >> $OUTFILE
-echo "	<head>" >> $OUTFILE
-echo "		<title>$TITLE</title>" >> $OUTFILE
+(
+echo "<!DOCTYPE html>"
+echo "<html>"
+echo "	<head>"
+echo "		<title>$TITLE</title>"
 if [ $O_PLAIN -eq 0 ] ; then
-	echo "		<style type=\"text/css\">" >> $OUTFILE
-	echo "			html {font:1em/1.5em "Bitstream Vera Sans","Verdana",sans-serif}" >> $OUTFILE
-	echo "			h1,h2,h3 {padding-bottom:0.1em}" >> $OUTFILE
-	echo "			h1 {border-bottom:0.01em solid #666}" >> $OUTFILE
-	echo "			h2 {border-bottom:0.01em solid #999}" >> $OUTFILE
-	echo "			h3 {border-bottom:0.01em dashed #ccc}" >> $OUTFILE
-	echo "			p {text-align: justify}" >> $OUTFILE
-	echo "			.small {font-size:0.75em}" >> $OUTFILE
-	echo "			.grey {color:#666666}" >> $OUTFILE
-	echo "			blockquote {margin:10px 0px;padding-left:10px;border-left:10px solid #ccc}" >> $OUTFILE
-	echo "			@media screen {body {max-width:800px;margin:auto}}" >> $OUTFILE
-	echo "		</style>" >> $OUTFILE
+	echo "		<style type=\"text/css\">"
+	echo "			html {font:1em/1.5em \"Bitstream Vera Sans\",\"Verdana\",sans-serif}"
+	echo "			h1,h2,h3 {padding-bottom:0.1em}"
+	echo "			h1 {border-bottom:0.01em solid #666}"
+	echo "			h2 {border-bottom:0.01em solid #999}"
+	echo "			h3 {border-bottom:0.01em dashed #ccc}"
+	echo "			p {text-align: justify}"
+	echo "			.small {font-size:0.75em}"
+	echo "			.grey {color:#666666}"
+	echo "			blockquote {margin:10px 0px;padding-left:10px;border-left:10px solid #ccc}"
+	echo "			@media screen {body {max-width:800px;margin:auto}}"
+	echo "		</style>"
 fi
-if [ "$MKD" = "multimarkdown" -a $O_LINK -eq 1 ] ; then
-	echo "		<script src=\"http://code.jquery.com/jquery-1.7.1.min.js\" type=\"text/javascript\"></script>" >> $OUTFILE
-	echo "		<script type="text/javascript">" >> $OUTFILE
-	echo "			\$(document).ready(function() {" >> $OUTFILE
-	echo "			\$(\"h1,h2,h3,h4,h5,h6\").click(function() {" >> $OUTFILE
-	echo "				window.location.hash = '#' + \$(this).attr(\"id\");" >> $OUTFILE
-	echo "				});" >> $OUTFILE
-	echo "			});" >> $OUTFILE
-	echo "		</script>" >> $OUTFILE
+if [ "$MKD" = "multimarkdown" ] && [ $O_LINK -eq 1 ] ; then
+	echo "		<script src=\"http://code.jquery.com/jquery-1.7.1.min.js\" type=\"text/javascript\"></script>"
+	echo "		<script type=\"text/javascript\">"
+	echo "			\$(document).ready(function() {"
+	echo "			\$(\"h1,h2,h3,h4,h5,h6\").click(function() {"
+	echo "				window.location.hash = '#' + \$(this).attr(\"id\");"
+	echo "				});"
+	echo "			});"
+	echo "		</script>"
 fi
-echo "	</head>" >> $OUTFILE
-echo "	<body>" >> $OUTFILE
-$MKD $INFILE >> $OUTFILE
-echo "	</body>" >> $OUTFILE
-echo "</html>" >> $OUTFILE
+echo "	</head>"
+echo "	<body>"
+$MKD "$INFILE"
+echo "	</body>"
+echo "</html>"
+) > "$OUTFILE"

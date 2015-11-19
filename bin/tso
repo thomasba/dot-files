@@ -17,7 +17,7 @@ QUALITY="3.0"
 
 while getopts n:h opt ; do
 	case "$opt" in
-		\-)   break ;;
+		-)   break ;;
 		[hH]) usage ; exit ;;
 		n)    QUALITY=$OPTARG ;;
 	esac
@@ -32,7 +32,7 @@ fi
 mkdir -p "$DIR/smalleroggs"
 TMP="$(mktemp)"
 
-find "$DIR" -maxdepth 1 -iname '*.ogg' -o -iname '*.mp3' -o -iname '*.flac'|while read FILE ; do
+find "$DIR" -maxdepth 1 -iname '*.ogg' -o -iname '*.mp3' -o -iname '*.flac'|while read -r FILE ; do
 	NAME=$( basename "$FILE" )
 	echo "Processing \"$NAME\"..."
 	case $FILE in 

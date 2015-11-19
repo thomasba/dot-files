@@ -11,11 +11,11 @@ if [ $# -eq 0 ] ; then
 elif [[ $1 = +[0-9]* ]] || [[ $1 = -[0-9]* ]] ; then 
 	volume="$1"
 	#amixer -q -c 0 -- sset Master playback $(calc $(amixer sget Master | sed -rn 's/^.*Front Right: [^\[]*\[([0-9]+)%\].*$/\1/p')$volume)%
-	amixer -c $CARD set $CH $(echo $1|sed -e 's/^\(.\)\(.*\)$/\2%\1/') > /dev/null
+	amixer -c "$CARD" set $CH "$(echo "$1"|sed -e 's/^\(.\)\(.*\)$/\2%\1/')" > /dev/null
 	pkill -RTMIN+1 i3blocks||true
 elif [[ $1 = [0-9]* ]] ; then
 	volume=$1
-	amixer -q -c $CARD -- sset $CH playback $volume%
+	amixer -q -c "$CARD" -- sset $CH playback "$volume%"
 	pkill -RTMIN+1 i3blocks||true
 else
 	echo "Usage: $0 ±<int>"

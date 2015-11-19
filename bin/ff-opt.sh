@@ -2,13 +2,11 @@
 
 # optimize firefox sqlite databases
 
-if [ `ps aux | grep -v grep | grep -c firefox` = "0" ] ; then
-	IFS="
-"
-	for i in `find ~/.mozilla -name \*.sqlite`; do
+if [ "$(pgrep -c firefox)" = "0" ] ; then
+	find ~/.mozilla -name \*.sqlite|while read -r i ; do
 		echo "Optimizing \"$i\"..."
-		sqlite3 $i vacuum
-		sqlite3 $i reindex
+		sqlite3 "$i" vacuum
+		sqlite3 "$i" reindex
 	done
 	echo "done"
 else

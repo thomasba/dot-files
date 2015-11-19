@@ -12,7 +12,7 @@ html{font:1em/1.5em "Bitstream Vera Sans","Verdana",sans-serif}h1,h2,h3{padding-
 	</head>
 	<body>
 EOS
-pandoc -f markdown -t html5 $@
+pandoc -f markdown -t html5 "$@"
 cat << EOS
 	</body>
 </html>

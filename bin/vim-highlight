@@ -5,12 +5,12 @@ lnr="1"
 while getopts n opt ; do
     case "$opt" in
         n) lnr="0" ;;
-        \-) break ;;
+        -) break ;;
     esac
 done
 
-shift $(expr $OPTIND - 1)
-file=$(mktemp)
+shift $((OPTIND - 1))
+file="$(mktemp)"
 
 if [ -z "$2" ] ; then
     title="No Title"
@@ -18,9 +18,9 @@ else
     title="$2"
 fi
 
-cat > $file
+cat > "$file"
 
-vim -nEs $file +"syntax on"                    \
+vim -nEs "$file" +"syntax on"                  \
             +"set t_Co=256 ft=$1 tabstop=4 fileencodings=ucs-bom,utf-8,latin,windows-1252"    \
             +"colorscheme wombat256_thomasba"  \
             +"let html_no_progress=1"          \
@@ -31,10 +31,10 @@ vim -nEs $file +"syntax on"                    \
             +"w! $file.html"                   \
             +"qall!" &>/dev/null
 
-sed -i 's_<title>/tmp/.*</title>_<title>'"$title"'</title>_' $file.html
-sed -i '/^<style type="text\/css">/,/^<\/style>/d' $file.html
-sed -i 's/^<\/head>/<link href="vim.css" type="text\/css" rel="stylesheet"\/>\n<\/head>/' $file.html
+sed -i 's_<title>/tmp/.*</title>_<title>'"$title"'</title>_' "$file.html"
+sed -i '/^<style type="text\/css">/,/^<\/style>/d' "$file.html"
+sed -i 's/^<\/head>/<link href="vim.css" type="text\/css" rel="stylesheet"\/>\n<\/head>/' "$file.html"
 
-rm $file
-cat $file.html
-rm $file.html
+rm "$file"
+cat "$file.html"
+rm "$file.html"
