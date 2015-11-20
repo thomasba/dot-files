@@ -207,6 +207,7 @@ let g:syntastic_php_checkers = ['php']
 let g:syntastic_html_tidy_ignore_errors = ['warning: <div> proprietary attribute "data-role"', '<input> proprietary attribute "required"', '<input> proprietary attribute "pattern"', '<select> proprietary attribute "required"']
 
 let g:github_dashboard = { 'username': $GITHUB_USERNAME, 'password': $GITHUB_TOKEN }
+let g:github_access_token = $GITHUB_TOKEN
 
 " vimux
 " Set tmux pane percentage
@@ -222,3 +223,6 @@ let g:vim_markdown_folding_disabled=1
 
 " CtrlP
 nmap <C-b> :CtrlPBuffer<cr>
+
+" Move
+let g:move_key_modifier = 'C'

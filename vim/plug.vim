@@ -38,6 +38,7 @@ elseif executable('ack')
 endif
 
 " Utility
+Plug 'Shougo/neocomplete.vim'
 Plug 'tpope/vim-speeddating'
 Plug 'bling/vim-airline'
 Plug 'vim-scripts/Tagbar'
@@ -48,7 +49,6 @@ Plug 'mtth/scratch.vim'
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/tComment'
-Plug 'tpope/vim-fugitive'
 Plug 'tmhedberg/matchit'
 Plug 'chase/vim-ansible-yaml', { 'for': 'yaml' }
 Plug 'jamessan/vim-gnupg', { 'for': 'gpg' }
@@ -56,9 +56,15 @@ Plug 'docunext/closetag.vim', { 'for': ['html','php']  }
 Plug 'lilydjwg/colorizer', { 'for': ['html','php','css','sass','scss'] }
 Plug 'Townk/vim-autoclose'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
+Plug 'chrisbra/vim-diff-enhanced'
+Plug 'matze/vim-move'
+Plug 'sk1418/Join'
 " Interact with tmux from vim
 Plug 'benmills/vimux'
+" git
+Plug 'tpope/vim-fugitive'
 Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
+Plug 'jaxbot/github-issues.vim'
 
 " test:
 "Plugin 'Yggdroot/indentLine'
