@@ -117,6 +117,15 @@ cp_p()
 		}
 		END { print "" }' total_size=$(stat -c '%s' "${1}") count=0
 }
+# lima-city
+
+function limaftp() {
+	if [ $# -ne 2 ] ; then
+		echo "Usage: $0 <username> <password>"
+		return 2
+	fi
+	lftp -u "$1:$2" "$1.lima-ftp.de"
+}
 
 # systemctl
 command -v systemctl > /dev/null && {

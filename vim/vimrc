@@ -1,32 +1,38 @@
-" load plugins using vundle
+" vim: set fdm=marker fdc=3 :
 
+" load plugins using vundle {{{
 if has("win32")
 	source ~/vimfiles/plug.vim
 else
 	source ~/.vim/plug.vim
 endif
-
-syntax on
-filetype plugin indent on
-
-
-" delete always on backspace
-set backspace=indent,eol,start
-
-" set colorscheme
-if &term =~# '^\(screen\|xterm\)$'
+" }}}
+" set colorscheme {{{
+if &term =~# '^\(screen\|xterm\)'
     set t_Co=256
+	let g:solarized_termcolors=256
 endif
 if (&t_Co >= 255 && &term !~ '^linux$') || has("gui_running")
 	colorscheme wombat256_thomasba
 else
 	colorscheme elflord2
 endif
-
-if has("gui_running")
+" }}}
+" GUI settings {{{
+if has('gui_running')
+	" Make shift-insert work like in Xterm
+	map <S-Insert> <MiddleMouse>
+	map! <S-Insert> <MiddleMouse>
 	set guifont="Monospace 10"
+	" Nooo, dont blink!!
+	set guicursor=a:blinkon0
 endif
-
+" }}}
+" editor settings {{{
+syntax on
+filetype plugin indent on
+" delete always on backspace
+set backspace=indent,eol,start
 set hidden
 set number
 set numberwidth=4
@@ -51,39 +57,38 @@ set ttyfast
 set hlsearch
 set spelllang=de_de,en
 set copyindent
-
-" move by screen lines, not by real lines - great for creative writing
+" }}}
+" move by screen lines, not by real lines - great for creative writing {{{
 nnoremap j gj
 nnoremap k gk
 nnoremap <Up> gk
 nnoremap <Down> gj
-
 " also in visual mode
 vnoremap j gj
 vnoremap k gk
 vnoremap <Up> gk
 vnoremap <Down> gj
-
-nnoremap , :
-
+" }}}
+" fileencoding {{{
 set encoding=utf-8
 set fileencodings=ucs-bom,utf-8,latin,windows-1252
-
+" }}}
+" TOhtml settings {{{
 let g:html_prevent_copy = "fn"
 let html_use_xhtml=1
 let html_use_css=1
-
-" slightly highlight rows and columns
+" }}}
+" slightly highlight rows and columns {{{
 "set cursorline
 "set cursorcolumn
-
-" mail
+" }}}
+" mail {{{
 augroup mail
 	autocmd!
-		autocmd FileType mail set textwidth=70 wrap fo=tcrq
+	autocmd FileType mail set textwidth=70 wrap fo=tcrq
 augroup END
-
-" auto completion and menu
+" }}}
+" auto completion and menu {{{
 if has("wildmenu")
 	set wildignore+=*.a,*.o
     set wildignore+=.DS_Store,.git,.hg,.svn
@@ -91,7 +96,48 @@ if has("wildmenu")
 	set wildmenu
 	set wildmode=list,longest,full
 	inoremap <C-f> <C-X><C-F>
-endif
+endif " }}}
+" plugins {{{
+	" syntastic {{{
+		let g:syntastic_always_populate_loc_list = 1
+		let g:syntastic_auto_loc_list = 1
+		let g:syntastic_check_on_open = 1
+		let g:syntastic_check_on_wq = 0
+
+		let g:syntastic_perl_checkers = ['perl']
+		let g:syntastic_enable_perl_checker = 1
+		let g:syntastic_python_checkers = ['pylint']
+		let g:syntastic_php_checkers = ['php']
+		let g:syntastic_html_tidy_ignore_errors = ['warning: <div> proprietary attribute "data-role"', '<input> proprietary attribute "required"', '<input> proprietary attribute "pattern"', '<select> proprietary attribute "required"']
+	" }}}
+	" github {{{
+		let g:github_dashboard = { 'username': $GITHUB_USERNAME, 'password': $GITHUB_TOKEN }
+		let g:github_access_token = $GITHUB_TOKEN
+	" }}}
+	" CtrlP {{{
+		nmap <C-b> :CtrlPBuffer<cr>
+	" }}}
+	" Move {{{
+		let g:move_key_modifier = 'C'
+	" }}}
+	" vimux {{{
+		" Set tmux pane percentage
+		let g:VimuxHeight = "30"
+		" Split tmux pane horizontally
+		let g:VimuxOrientation = "h"
+		" Prompt for a command to run
+		noremap <leader>vp :VimuxPromptCommand<CR>
+	" }}}
+	" NERDTree {{{
+		" Hide latex output
+		let NERDTreeIgnore=['\~$','\.\(aux\|nav\|out\|snm\|toc\|vrb\|o\)$']
+		let g:nerdtree_plugin_open_cmd = "xdg-open"
+	" }}}
+" /plugins }}}
+
+nnoremap , :
+
+
 
 " Map keys to toggle functions
 function! MapToggle(key, opt)
@@ -167,26 +213,13 @@ nnoremap <leader>- YpVr-
 "let g:neocomplcache_enable_at_startup = 1
 let g:indent_guides_auto_colors = 0
 
-" Hide latex output
-let NERDTreeIgnore=['\~$','\.\(aux\|nav\|out\|snm\|toc\|vrb\|o\)$']
-let g:nerdtree_plugin_open_cmd = "xdg-open"
-
 let g:tex_flavor = "latex"
 
 " Large files >= 200
 let g:LargeFile = 200
 
-" Nooo, dont blink!!
-set guicursor=a:blinkon0
-
-
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 
-if has('gui_running')
-	" Make shift-insert work like in Xterm
-	map <S-Insert> <MiddleMouse>
-	map! <S-Insert> <MiddleMouse>
-endif
 let g:languagetool_lang = "de"
 let g:languagetool_jar = "/usr/share/java/languagetool/languagetool.jar"
 
@@ -194,35 +227,6 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-let g:syntastic_perl_checkers = ['perl']
-let g:syntastic_enable_perl_checker = 1
-let g:syntastic_python_checkers = ['pylint']
-let g:syntastic_php_checkers = ['php']
-" syntastic
-let g:syntastic_html_tidy_ignore_errors = ['warning: <div> proprietary attribute "data-role"', '<input> proprietary attribute "required"', '<input> proprietary attribute "pattern"', '<select> proprietary attribute "required"']
-
-let g:github_dashboard = { 'username': $GITHUB_USERNAME, 'password': $GITHUB_TOKEN }
-let g:github_access_token = $GITHUB_TOKEN
-
-" vimux
-" Set tmux pane percentage
-let g:VimuxHeight = "30"
-" Split tmux pane horizontally
-let g:VimuxOrientation = "h"
-" Prompt for a command to run
-noremap <leader>vp :VimuxPromptCommand<CR>
-
 " markdown
 let g:vim_markdown_frontmatter=1
 let g:vim_markdown_folding_disabled=1
-
-" CtrlP
-nmap <C-b> :CtrlPBuffer<cr>
-
-" Move
-let g:move_key_modifier = 'C'

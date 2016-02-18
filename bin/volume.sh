@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CARD=$(aplay -l|sed -n 's/^Karte \([0-9]\+\): .*G930.*$/\1/p')
+CARD=$(LANG=en_US aplay -l|sed -n 's/^\(Karte\|card\) \([0-9]\+\): .*G930.*$/\2/p')
 CH="PCM"
 
 if [ $# -eq 0 ] ; then

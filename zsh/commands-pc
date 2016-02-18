@@ -43,4 +43,20 @@ function offlineimap-solve-uuid-problem() {
         echo "File or folder not found!"
     fi
 }
+
+# ssh to the server a user in located on and change to his directory
+function userssh() {
+	if [[ "$1" =~ "^[a-z][a-z0-9-]+[a-z0-9]$" ]] ; then
+		SERVER="$(curl -Ss "https://$LIMA_API_KEY@www.lima-city.de/internal_api/users/$1/placement"|jq -r '.user.placement')"
+		if [ "$SERVER" = "null" ] ; then
+			echo 'Invalid username!'
+		else
+			echo "Connecting to server $SERVER.trafficplex.de ..."
+			ssh "$SERVER.trafficplex.de" -t "cd /mnt/webhosting/$1/; exec \$SHELL --login"
+		fi
+	else
+		echo 'Invalid username!'
+	fi
+}
+
 # vim: ft=zsh :

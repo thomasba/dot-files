@@ -13,6 +13,8 @@ call plug#begin('~/.vim/plugged')
 
 " color
 Plug 'thomasba/wombat256.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'baeuml/summerfruit256.vim'
 
 
 " filetype
@@ -40,7 +42,8 @@ endif
 " Utility
 Plug 'Shougo/neocomplete.vim'
 Plug 'tpope/vim-speeddating'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/Tagbar'
 Plug 'vim-scripts/loremipsum', { 'on': 'Loremipsum' }
 Plug 'vim-scripts/LanguageTool', {'on': 'LanguageToolCheck'}
