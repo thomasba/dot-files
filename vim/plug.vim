@@ -29,6 +29,7 @@ Plug 'vim-scripts/JSON.vim', {'for': 'json'}
 Plug 'PProvost/vim-ps1', {'for': 'ps1'}
 Plug 'kchmck/vim-coffee-script', {'for': ['coffee', 'markdown', 'mkd.markdown']}
 Plug 'vim-scripts/cisco.vim'
+Plug 'niklasl/vim-rdf'
 
 " Files
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'  }
