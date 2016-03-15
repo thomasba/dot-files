@@ -9,6 +9,7 @@ fi
 
 source $HOME/.zsh/commands
 source $HOME/.zsh/programs
+source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 case "$MTYPE" in
 	"PC")
 		source $HOME/.zsh/commands-pc
