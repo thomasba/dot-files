@@ -29,7 +29,7 @@ function cecho() {
 	fi
 }
 function backup_file() {
-	file="${1/\~/$HOME}"
+	file="${1}"
 	if [ -e "$file" ] ; then
 		if [ -d "$file" ] ; then
 			cecho purple "  - Moving old '$file' directory ..."
@@ -43,14 +43,14 @@ function backup_file() {
 }
 function symlink() {
 	# usage: symlink <name> <destination>
-	name="${1/\~/$HOME}"
+	name="${1}"
 	cecho green "  + Creating symlink to '$2' ..."
-	ln -s $2 $name
+	ln -s "$2" "$name"
 }
 function ask() {
 	cecho ask "  ? Install file '$1'? [N/y] "
-	read c
-	if [ "$c" == "y" -o "$c" == "Y" ] ; then
+	read -r c
+	if [ "$c" == "y" ] || [ "$c" == "Y" ] ; then
 		backup_file "$1"
 		symlink "$1" "$2"
 	fi
@@ -61,10 +61,10 @@ function ask() {
 #######
 
 cecho cyan "Installing vim config ..."
-backup_file "~/.vim"
-backup_file "~/.vimrc"
-symlink "~/.vim" "${MY_PATH}/vim"
-symlink "~/.vimrc" "${MY_PATH}/vim/vimrc"
+backup_file "$HOME/.vim"
+backup_file "$HOME/.vimrc"
+symlink "$HOME/.vim" "${MY_PATH}/vim"
+symlink "$HOME/.vimrc" "${MY_PATH}/vim/vimrc"
 if command -v vim >/dev/null 2>&1; then
 	cecho green "  + Installing plugins ... "
 	vim -nE +"colorscheme default" +PluginInstall +qall
@@ -79,31 +79,31 @@ fi
 #######
 
 cecho cyan "Installing zsh config"
-backup_file "~/.zsh"
-backup_file "~/.zshrc"
+backup_file "$HOME/.zsh"
+backup_file "$HOME/.zshrc"
 
 # check if grml is installed
 grep grml\.org /etc/zsh/zshrc > /dev/null
 if [ $? -ne 0 ] ; then
 	echo "  + Installing grml ..."
-	wget -O ~/.zshrc http://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
+	wget -O "$HOME/.zshrc" http://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
 	cecho yellow "  ! You might wanna install grml-zsh-config using your packet manager"
 	cecho yellow "  ! and remove the .zshrc file in your home directory. "
 else
 	cecho green "  . grml-zsh-config is already installed :-)"
 	# prevent configuration dialog
-	if [ ! -f "~/.zshrc" ] ; then
+	if [ ! -f "$HOME/.zshrc" ] ; then
 		cecho green "  + Creating empty .zshrc"
-		echo "# empty" > ~/.zshrc
+		echo "# empty" > "$HOME/.zshrc"
 	fi
 fi
 
 
-symlink "~/.zsh" "${MY_PATH}/zsh"
-symlink "~/.zshrc.local" "${MY_PATH}/zsh/zshrc.local"
-while [ ! "$MTYPE" == "PC" -a ! "$MTYPE" == "SERVER" ] ; do
+symlink "$HOME/.zsh" "${MY_PATH}/zsh"
+symlink "$HOME/.zshrc.local" "${MY_PATH}/zsh/zshrc.local"
+while [ ! "$MTYPE" == "PC" ] && [ ! "$MTYPE" == "SERVER" ] ; do
 	cecho ask "  ? Is this a server of a PC? [s|p] > "
-	read mt
+	read -r mt
 	case $mt in
 		[Ss]*)
 			MTYPE="SERVER";;
@@ -113,6 +113,9 @@ while [ ! "$MTYPE" == "PC" -a ! "$MTYPE" == "SERVER" ] ; do
 			cecho red "  ! Invalid input";;
 	esac
 done
+
+git clone git://github.com/zsh-users/zsh-autosuggestions "$HOME/.zsh/zsh-autosuggestions"
+
 cecho green "  + Creating .zshrc.pre ... "
 (
 	echo "# Path to your oh-my-zsh configuration."
@@ -121,15 +124,15 @@ cecho green "  + Creating .zshrc.pre ... "
 	echo "export DEFAULT_USER=\"\$(whoami)\""
 	echo "# machine type"
 	echo "export MTYPE=\"$MTYPE\""
-) > ~/.zshrc.pre
+) > "$HOME/.zshrc.pre"
 
 ########
 # tmux #
 ########
 
 cecho cyan "Installing tmux config"
-backup_file "~/.tmux.conf"
-symlink "~/.tmux.conf" "${MY_PATH}/tmux/tmux.conf"
+backup_file "$HOME/.tmux.conf"
+symlink "$HOME/.tmux.conf" "${MY_PATH}/tmux/tmux.conf"
 
 ######
 # i3 #
@@ -137,11 +140,11 @@ symlink "~/.tmux.conf" "${MY_PATH}/tmux/tmux.conf"
 
 cecho cyan "Installing i3 config"
 if [ "$MTYPE" == "PC" ] ; then
-	backup_file "~/.i3"
-	backup_file "~/.i3status.conf"
-	symlink "~/.i3" "${MY_PATH}/i3"
-	symlink "~/.i3status.conf" "${MY_PATH}/i3/i3status.conf"
-	ask "~/.xprofile" "${MY_PATH}/xprofile"
+	backup_file "$HOME/.i3"
+	backup_file "$HOME/.i3status.conf"
+	symlink "$HOME/.i3" "${MY_PATH}/i3"
+	symlink "$HOME/.i3status.conf" "${MY_PATH}/i3/i3status.conf"
+	ask "$HOME/.xprofile" "${MY_PATH}/xprofile"
 else
 	cecho yellow "  > skipping "
 fi
@@ -152,13 +155,13 @@ fi
 cecho cyan "Symlinking other stuff ..."
 
 if [ "$MTYPE" == "PC" ] ; then
-	ask "~/.xinitrc" "${MY_PATH}/xinitrc"
-	ask "~/.pentadactylrc" "${MY_PATH}/pentadactylrc"
-	ask "~/.gitconfig" "${MY_PATH}/gitconfig"
+	ask "$HOME/.xinitrc" "${MY_PATH}/xinitrc"
+	ask "$HOME/.pentadactylrc" "${MY_PATH}/pentadactylrc"
+	ask "$HOME/.gitconfig" "${MY_PATH}/gitconfig"
 else
-	backup_file "~/.gitconfig"
-	symlink "~/.gitconfig" "${MY_PATH}/gitconfig"
+	backup_file "$HOME/.gitconfig"
+	symlink "$HOME/.gitconfig" "${MY_PATH}/gitconfig"
 fi
 
-backup_file "~/bin"
-symlink "~/bin" "${MY_PATH}/bin"
+backup_file "$HOME/bin"
+symlink "$HOME/bin" "${MY_PATH}/bin"
