@@ -107,12 +107,12 @@ bindcode Mod4+Shift+19 move workspace 10
 # Mod4+Enter starts a new terminal
 bindcode Mod4+36 exec $terminal
 
-# mpd config
-bindcode 171 exec /usr/bin/mpc next
-bindcode 172 exec /usr/bin/mpc toggle
-bindcode 173 exec /usr/bin/mpc prev
-bindcode 174 exec /usr/bin/mpc stop
-bindsym XF86Calculator exec /usr/bin/mpc next
+# playerctl config
+bindcode 171 exec /usr/bin/playerctl next
+bindcode 172 exec /usr/bin/playerctl play-pause
+bindcode 173 exec /usr/bin/playerctl previous
+bindcode 174 exec /usr/bin/playerctl stop
+bindsym XF86Calculator exec /usr/bin/playerctl next
 
 # Mod4+Shift+q kills the current client
 bindsym Mod4+Shift+q kill
