@@ -1,0 +1,19 @@
+! ------------------------------------------------------------------------------
+! ROFI Options
+! ------------------------------------------------------------------------------
+rofi.key-run: SuperL-space
+rofi.key-ssh: SuperL-s
+rofi.key-window: SuperL-Tab
+rofi.fuzzy: true
+rofi.terminal: evilvte
+rofi.ssh-command: {terminal} -e env TERM=xterm-256color {ssh-client} {host}
+! ------------------------------------------------------------------------------
+! ROFI Color theme
+! ------------------------------------------------------------------------------
+rofi.color-enabled: true
+rofi.color-window: #ffffff, #0096ff, #0096ff
+rofi.color-normal: #ffffff, #002b36, #eeeeee, #586e75, #eee8d5
+rofi.color-active: #ffffff, #0096ff, #eeeeee, #0096ff, #ffffff
+rofi.color-urgent: #ffffff, #dc322f, #eeeeee, #dc322f, #fdf6e3
+
+! vim: set ft=xdefaults :
