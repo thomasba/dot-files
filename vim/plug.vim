@@ -30,6 +30,7 @@ Plug 'PProvost/vim-ps1', {'for': 'ps1'}
 Plug 'kchmck/vim-coffee-script', {'for': ['coffee', 'markdown', 'mkd.markdown']}
 Plug 'vim-scripts/cisco.vim'
 Plug 'niklasl/vim-rdf'
+Plug 'nathanaelkane/vim-indent-guides'
 
 " Files
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'  }

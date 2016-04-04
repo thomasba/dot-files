@@ -107,6 +107,7 @@ endif " }}}
 		let g:syntastic_perl_checkers = ['perl']
 		let g:syntastic_enable_perl_checker = 1
 		let g:syntastic_python_checkers = ['pylint']
+		let g:syntastic_python_pylint_args = '--indent-string="\t"'
 		let g:syntastic_php_checkers = ['php']
 		let g:syntastic_html_tidy_ignore_errors = ['warning: <div> proprietary attribute "data-role"', '<input> proprietary attribute "required"', '<input> proprietary attribute "pattern"', '<select> proprietary attribute "required"']
 	" }}}
@@ -133,7 +134,12 @@ endif " }}}
 		let NERDTreeIgnore=['\~$','\.\(aux\|nav\|out\|snm\|toc\|vrb\|o\)$']
 		let g:nerdtree_plugin_open_cmd = "xdg-open"
 	" }}}
+	" Indent Guide {{{
+		let g:indent_guides_start_level = 1
+		let g:indent_guides_guide_size  = 1
+	" }}}
 " /plugins }}}
+
 
 nnoremap , :
 
