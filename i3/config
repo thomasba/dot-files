@@ -118,7 +118,7 @@ bindsym Mod4+Shift+k kill client
 
 # Mod4+v starts dmenu and launches the selected application
 # for now, we don’t have an own launcher
-bindsym Mod4+v exec /usr/bin/dmenu_run -nb '#333' -nf '#9c9' -sb '#000' -sf '#696'
+bindsym Mod4+v exec rofi
 
 bindsym Mod4+comma split vertical
 bindsym Mod4+period split horizontal
@@ -133,6 +133,7 @@ bindsym Mod4+c exec bashrun --toggle
 
 bindsym Mod4+b border toggle
 bindsym Mod4+o open
+bindsym Mod4+p exec rofi-pass
 
 bindsym Mod4+Shift+r restarts i3 inplace
 
