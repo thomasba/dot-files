@@ -56,7 +56,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-scripts/tComment'
 Plug 'tmhedberg/matchit'
 Plug 'chase/vim-ansible-yaml', { 'for': 'yaml' }
-Plug 'jamessan/vim-gnupg', { 'for': 'gpg' }
+Plug 'jamessan/vim-gnupg'
 Plug 'docunext/closetag.vim', { 'for': ['html','php']  }
 Plug 'lilydjwg/colorizer', { 'for': ['html','php','css','sass','scss'] }
 Plug 'Townk/vim-autoclose'

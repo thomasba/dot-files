@@ -40,8 +40,6 @@ bindcode Mod4+26 layout default
 # Toggle tiling/floating of the current window (Mod4+t)
 bindsym Mod4+t floating toggle
 
-bindsym Mod4+space exec bashrun2
-
 # Go into the tiling layer / floating layer, depending on whether
 # the current window is tiling / floating (Mod4+t)
 #bindcode Mod4+28 focus mode_toggle
