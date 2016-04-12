@@ -12,6 +12,8 @@ EOH
 }
 
 prompt_tba_setup () {
+	setopt prompt_subst
+
 	local text_col=${1:-'white'}
 	local parens_col=${2:-'cyan'}
 	local time_col=${3:-'yellow'}
@@ -27,6 +29,7 @@ prompt_tba_setup () {
 	local time_color="%b%F{$time_col}"
 	local red="%B%F{red}"
 	local yellow="%B%F{yellow}"
+	local green="%b%F{green}"
 	local hostname="%B%F{green}"
 	local user_color="%b%F{green}"
 	if [[ "$(id -u)" = "0" ]] ; then
@@ -118,16 +121,25 @@ prompt_tba_setup () {
 		
 		# I want to know my battery percentage when running on battery power
 		if which acpi &> /dev/null; then
-		    local BATTSTATE="$(acpi -b 2> /dev/null)"
+		    local BATTSTATE="$(LANG=en_US acpi -b 2> /dev/null)"
 		    local BATTPRCNT="$(echo ${BATTSTATE[(w)4]}|sed -r 's/(^[0-9]+).*/\1/')"
+		    local BATTCHRG="$(echo ${BATTSTATE[(w)3]}|sed -r 's/(^[A-Za-z]+).*/\1/')"
+			# reset values
+			BAT=""
+			BAT_CHRG=""
+			BAT_CRIT=""
+			BAT_LOW=""
+			# set actual value
 		    if [[ -z "${BATTPRCNT}" ]]; then
-		        PR_BATTERY=""
+		        BAT=""
+			elif [[ "${BATTCHRG}" == "Charging" ]] ; then
+		        BAT_CHRG=" ${green}B:${BATTPRCNT}%%"
 		    elif [[ "${BATTPRCNT}" -lt 20 ]]; then
-		        PR_BATTERY=" $redB:${BATTPRCNT}%%"
+		        BAT_CRIT=" ${red}B:${BATTPRCNT}%%"
 		    elif [[ "${BATTPRCNT}" -lt 40 ]]; then
-		        PR_BATTERY=" $yellowB:${BATTPRCNT}%%"
+		        BAT_LOW=" ${yellow}B:${BATTPRCNT}%%"
 		    else
-		        PR_BATTERY=" B:${BATTPRCNT}%%"
+		        BAT=" B:${BATTPRCNT}%%"
 		    fi
 		fi
 		
@@ -153,7 +165,7 @@ prompt_tba_setup () {
 $reset$time_color%\${PR_PWDLEN}<...<%~%<<\
 $reset\
 
-$parens├─($red\${IS_SSH_CONN}%(?.. E:%?)$text\${PR_BATTERY}\${SCREEN}\${JOBS}\
+$parens├─($red\${IS_SSH_CONN}%(?.. E:%?)$green\${BAT_CHRG}$yellow\${BAT_LOW}$red\${BAT_CRIT}$text\${BAT}\${SCREEN}\${JOBS}\
 \${GITBRANCH} $parens)$reset\
 
 $parens└─[%(!.#.$)]${text} "
