@@ -118,6 +118,7 @@ bindsym Mod4+Shift+k kill client
 
 bindsym Mod4+p exec rofi-pass
 bindsym Mod4+i exec teiler
+bindsym Mod4+v exec rofi
 
 bindsym Mod4+comma split vertical
 bindsym Mod4+period split horizontal
@@ -132,6 +133,7 @@ bindsym Mod4+c exec bashrun --toggle
 
 bindsym Mod4+b border toggle
 bindsym Mod4+o open
+bindsym Mod4+p exec rofi-pass
 
 bindsym Mod4+Shift+r restarts i3 inplace
 
