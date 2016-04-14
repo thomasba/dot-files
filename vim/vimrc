@@ -139,7 +139,13 @@ endif " }}}
 		let g:indent_guides_guide_size  = 1
 	" }}}
 " /plugins }}}
-
+" markdown {{{
+let g:vim_markdown_frontmatter=1
+let g:vim_markdown_folding_disabled=1
+" Underline (Markdown Style)
+nnoremap <leader>= YpVr=
+nnoremap <leader>- YpVr-
+" }}}
 
 nnoremap , :
 
@@ -172,7 +178,10 @@ MapToggle <F5> spell
 MapToggle <F6> paste
 MapToggle <F7> hlsearch
 MapToggle <F8> wrap
-nnoremap <F9> <c-]>
+inoremap <F9> <C-O>za
+nnoremap <F9> za
+onoremap <F9> <C-C>za
+vnoremap <F9> zf
 nnoremap <F10> :!ctags -R<cr>
 nnoremap <F11> :bp<cr>
 nnoremap <F12> :bn<cr>
@@ -212,10 +221,6 @@ noremap <leader>y "+y
 noremap <leader>Y "+Y
 noremap <leader>p "+p
 
-" Underline (Markdown Style)
-nnoremap <leader>= YpVr=
-nnoremap <leader>- YpVr-
-
 "let g:neocomplcache_enable_at_startup = 1
 let g:indent_guides_auto_colors = 0
 
@@ -232,7 +237,3 @@ let g:languagetool_jar = "/usr/share/java/languagetool/languagetool.jar"
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-
-" markdown
-let g:vim_markdown_frontmatter=1
-let g:vim_markdown_folding_disabled=1
