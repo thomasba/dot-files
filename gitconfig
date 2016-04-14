@@ -1,6 +1,7 @@
 [user]
 	email = git@thomasba.de
 	name = thomasba
+	signingkey = D85BCC02
 [push]
 	default = simple
 [color]
