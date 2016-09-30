@@ -36,7 +36,7 @@ filetypes() {
 }
 
 checkUpdate() {
-	SERV_VER=$(curl -s -S 'http://git.thomasba.de/cgit/paste42/plain/paste42.sh' | sed -e '/^VERSION=.*/ !d;s/VERSION="\(.*\)"/\1/')
+	SERV_VER=$(curl -s -S 'https://git.thomasba.de/cgit/paste42/plain/paste42.sh' | sed -e '/^VERSION=.*/ !d;s/VERSION="\(.*\)"/\1/')
 	if [ "$SERV_VER" != "$VERSION" ] ; then
 		echo "Update available!"
 		echo "Your version:   $VERSION"
@@ -106,4 +106,4 @@ fi
 filename=$(basename "$1")
 
 # und die daten absenden.
-curl -s -S --data-urlencode "del=$password" -d "title=curl paste of $filename" $ATTR -d "type=$TYPE" --data-urlencode "text@$1" 'http://paste42.de/save'
+curl -s -S --data-urlencode "del=$password" -d "title=curl paste of $filename" $ATTR -d "type=$TYPE" --data-urlencode "text@$1" 'https://paste42.de/save'
