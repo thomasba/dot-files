@@ -65,6 +65,7 @@ Plug 'chrisbra/vim-diff-enhanced'
 Plug 'matze/vim-move'
 Plug 'sk1418/Join'
 Plug 'actionshrimp/vim-xpath'
+Plug 'vimwiki/vimwiki'
 " Interact with tmux from vim
 Plug 'benmills/vimux'
 " git
