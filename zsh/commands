@@ -77,6 +77,14 @@ function wim() {
         echo "  $0 <URL>"
     fi
 }
+function cim() {
+    if [ -n "$1" ] ; then
+        curl -s "$1"|vim -
+    else
+        echo "Usage:"
+        echo "  $0 <URL>"
+    fi
+}
 function expand() {
     wget -S -O /dev/null $1 2>&1 |grep "^\s*Location"
 }
