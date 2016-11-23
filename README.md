@@ -2,21 +2,26 @@
 
 This are my dot-files :-)
 
-Installing them is easy. Just execute the `install` script.
+Installing them is easy.
+
+- Linux: execute `install`
+- Windows: execute `install.bat` (symlinks git and vim config)
 
 ## vim
 
-### Use vundle
+### Use plug
 
-To add plugins simply the file `.vim/vundle.vim`
+To add plugins simply edit the file `.vim/plug.vim`
 
 Install new plugins:
 
-    :PluginInstall
+    :PlugInstall
 
 Update existing plugin:
 
-    :PluginUpdate
+    :PlugUpdate
+
+[vim-plug on github](https://github.com/junegunn/vim-plug)
 
 ## Screenshots
 
