@@ -3,7 +3,10 @@ filetype off                  " required
 
 if has("win32")
 	if !filereadable(expand("~/vimfiles/autoload/plug.vim"))
-		!curl -fLo \%USERPROFILE\%\.vim\autoload\plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+		if !isdirectory(expand('~\vimfiles\autoload'))
+			execute '!md ' . expand('~\vimfiles\autoload')
+		endif
+		execute '!bitsadmin.exe /transfer "vim-plug" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim ' . expand('~\vimfiles\autoload\plug.vim')
 	endif
 	call plug#begin('~/vimfiles/plugged')
 else
