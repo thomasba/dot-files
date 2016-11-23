@@ -1,15 +1,17 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-if !filereadable(expand("~/.vim/autoload/plug.vim"))
-	if has("win32")
+if has("win32")
+	if !filereadable(expand("~/vimfiles/autoload/plug.vim"))
 		!curl -fLo \%USERPROFILE\%\.vim\autoload\plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	else
+	endif
+	call plug#begin('~/vimfiles/plugged')
+else
+	if !filereadable(expand("~/.vim/autoload/plug.vim"))
 		!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	endif
+	call plug#begin('~/.vim/plugged')
 endif
-
-call plug#begin('~/.vim/plugged')
 
 " color
 Plug 'thomasba/wombat256.vim'
