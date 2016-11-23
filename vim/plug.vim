@@ -1,11 +1,15 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+" on windows we have different paths …
 if has("win32")
+	" if plug isnt downloaded yet, grab it from the internet
 	if !filereadable(expand("~/vimfiles/autoload/plug.vim"))
+		" but first check if the autoload folder exists, if not: create it
 		if !isdirectory(expand('~\vimfiles\autoload'))
 			execute '!md ' . expand('~\vimfiles\autoload')
 		endif
+		" download vim-plug using bitsadmin (yeah i know, it’s deprecated)
 		execute '!bitsadmin.exe /transfer "vim-plug" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim ' . expand('~\vimfiles\autoload\plug.vim')
 	endif
 	call plug#begin('~/vimfiles/plugged')
