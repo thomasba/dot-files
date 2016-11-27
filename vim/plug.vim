@@ -27,7 +27,7 @@ Plug 'baeuml/summerfruit256.vim'
 
 
 " filetype
-Plug 'vim-scripts/mcabberlog.vim', {'for': 'mcabberlog'}
+Plug 'thomasba/mcabberlog.vim', {'for': 'mcabberlog'}
 Plug 'vim-scripts/apachelogs.vim', {'for': 'apachelogs'}
 Plug 'vim-scripts/syslog-syntax-file', {'for': 'messages'}
 Plug 'othree/html5.vim', {'for': ['html','php']}
@@ -74,7 +74,6 @@ Plug 'chrisbra/vim-diff-enhanced'
 Plug 'matze/vim-move'
 Plug 'sk1418/Join'
 Plug 'actionshrimp/vim-xpath'
-Plug 'vimwiki/vimwiki'
 " Interact with tmux from vim
 Plug 'benmills/vimux'
 " git

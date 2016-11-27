@@ -1,5 +1,12 @@
 " vim: set fdm=marker fdc=3 :
 
+" vim config dir path
+if has("win32")
+	let g:vimdir=expand('~\vimfiles\')
+else
+	let g:vimdir=expand('~/.vim/')
+endif
+
 " load plugins using vundle {{{
 if has("win32")
 	source ~/vimfiles/plug.vim
@@ -146,10 +153,12 @@ let g:vim_markdown_folding_disabled=1
 nnoremap <leader>= YpVr=
 nnoremap <leader>- YpVr-
 " }}}
+let g:mcabber_mention='thomasba'
 
 nnoremap , :
 
-
+" hightlight wrapped line
+set showbreak=↪\ 
 
 " Map keys to toggle functions
 function! MapToggle(key, opt)
