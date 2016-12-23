@@ -1,0 +1,14 @@
+SpecialKey      NonText          Directory        ErrorMsg         IncSearch
+Search          MoreMsg          ModeMsg          LineNr           Question
+StatusLineNC    StatusLine       VertSplit        Title            VisualNOS
+Visual          WarningMsg       WildMenu         Folded           FoldColumn
+DiffAdd         DiffChange       DiffDelete       DiffText         Cursor
+Comment         Constant         String           Character        Number
+Boolean         Float            Identifier       Function         Statement
+Conditional     Repeat           Label            Operator         Keyword
+Exception       PreProc          Include          SpecialComment   Macro
+PreCondit       Type             StorageClass     Structure        TypeDef
+Special         SpecialChar      Tag              Delimiter        Define
+Debug           Underlined       Ignore           Error            Todo
+
+# vim: set ft=cst :
