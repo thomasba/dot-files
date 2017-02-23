@@ -9,7 +9,7 @@ endif
 
 " load plugins using vundle {{{
 if has("win32")
-	source ~/vimfiles/plug.vim
+	source ~\vimfiles\plug.vim
 else
 	source ~/.vim/plug.vim
 endif
