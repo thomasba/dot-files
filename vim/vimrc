@@ -177,23 +177,33 @@ endfunc
 nnoremap <C-n> :call NumberToggle()<cr>
 
 command! -nargs=+ MapToggle call MapToggle(<f-args>)
-" Keys & functions
-inoremap <F2> <esc>:NERDTreeToggle<cr>
-nnoremap <F2> :NERDTreeToggle<cr>
-inoremap <F3> <esc>:TagbarToggle<cr>
-nnoremap <F3> :TagbarToggle<cr>
-MapToggle <F4> number
-MapToggle <F5> spell
-MapToggle <F6> paste
-MapToggle <F7> hlsearch
-MapToggle <F8> wrap
-inoremap <F9> <C-O>za
-nnoremap <F9> za
-onoremap <F9> <C-C>za
-vnoremap <F9> zf
-nnoremap <F10> :!ctags -R<cr>
-nnoremap <F11> :bp<cr>
-nnoremap <F12> :bn<cr>
+" Keys & functions {{{
+	" Insert timestamp (insert mode)
+	inoremap <expr> <F1> strftime('%FT%T%z') . ": "
+	" toggle NERDTree (normal & input-mode)
+	inoremap <F2> <esc>:NERDTreeToggle<cr>
+	nnoremap <F2> :NERDTreeToggle<cr>
+	" toggle Tagbar (normal & input-mode)
+	inoremap <F3> <esc>:TagbarToggle<cr>
+	nnoremap <F3> :TagbarToggle<cr>
+	" toggle different editor settings (normal & input-mode)
+	MapToggle <F4> number
+	MapToggle <F5> spell
+	MapToggle <F6> paste
+	MapToggle <F7> hlsearch
+	MapToggle <F8> wrap
+	" toggle current fold
+	inoremap <F9> <C-O>za
+	nnoremap <F9> za
+	onoremap <F9> <C-C>za
+	vnoremap <F9> zf
+	" create ctags cache
+	nnoremap <F10> :!ctags -R<cr>
+	" previous buffer
+	nnoremap <F11> :bp<cr>
+	" next buffer
+	nnoremap <F12> :bn<cr>
+" }}}
 
 " make mcabber log pretty readable
 function! Mcabber()
