@@ -40,6 +40,7 @@ Plug 'kchmck/vim-coffee-script', {'for': ['coffee', 'markdown', 'mkd.markdown']}
 Plug 'vim-scripts/cisco.vim'
 Plug 'niklasl/vim-rdf'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'chrisbra/csv.vim'
 
 " Files
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'  }
