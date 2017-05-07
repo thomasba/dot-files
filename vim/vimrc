@@ -179,7 +179,12 @@ nnoremap <C-n> :call NumberToggle()<cr>
 command! -nargs=+ MapToggle call MapToggle(<f-args>)
 " Keys & functions {{{
 	" Insert timestamp (insert mode)
-	inoremap <expr> <F1> strftime('%FT%T%z') . ": "
+	if has("win32")
+		" to get the +xx:xx form we need to use powershell :-(
+		inoremap <expr> <F1> substitute(system("powershell -noprofile -command Get-Date -Format 'yyyy-MM-ddTHH:mm:sszzzz: '"),'[\r\n]*$','','')
+	else
+		inoremap <expr> <F1> strftime('%Y-%m-%dT%H:%I:%S%z: ')
+	endif
 	" toggle NERDTree (normal & input-mode)
 	inoremap <F2> <esc>:NERDTreeToggle<cr>
 	nnoremap <F2> :NERDTreeToggle<cr>
