@@ -52,6 +52,7 @@ elseif executable('ack')
 endif
 
 " Utility
+Plug 'chr4/sslsecure.vim'
 Plug 'Shougo/neocomplete.vim'
 Plug 'tpope/vim-speeddating'
 Plug 'vim-airline/vim-airline'
