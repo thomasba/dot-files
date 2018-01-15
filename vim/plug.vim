@@ -34,7 +34,7 @@ Plug 'othree/html5.vim', {'for': ['html','php']}
 Plug 'vim-scripts/bbcode', {'for': 'bbcode'}
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown', {'for': ['markdown', 'mkd.markdown'] }
-Plug 'vim-scripts/JSON.vim', {'for': 'json'}
+" Plug 'vim-scripts/JSON.vim', {'for': 'json'}
 Plug 'PProvost/vim-ps1', {'for': 'ps1'}
 Plug 'kchmck/vim-coffee-script', {'for': ['coffee', 'markdown', 'mkd.markdown']}
 Plug 'vim-scripts/cisco.vim'
@@ -82,6 +82,7 @@ Plug 'benmills/vimux'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
 Plug 'jaxbot/github-issues.vim'
+Plug 'elzr/vim-json'
 
 " test:
 "Plugin 'Yggdroot/indentLine'

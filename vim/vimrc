@@ -261,3 +261,5 @@ let g:languagetool_jar = "/usr/share/java/languagetool/languagetool.jar"
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+
+com! FormatJSON %!python -m json.tool
