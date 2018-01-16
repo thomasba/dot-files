@@ -15,3 +15,13 @@ nnoremap <F4> :MkdUpdate<CR>
 " Highlight trailing whitespaces
 highlight mkdTrailingSpace ctermbg=22 guibg=#005f00
 match mkdTrailingSpace " \+$"
+
+" ctags
+let g:tagbar_type_markdown = {
+    \ 'ctagstype' : 'markdown',
+    \ 'kinds' : [
+        \ 'h:Heading_L1',
+        \ 'i:Heading_L2',
+        \ 'k:Heading_L3'
+    \ ]
+\ }
