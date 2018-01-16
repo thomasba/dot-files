@@ -236,6 +236,6 @@ mode "$mode_gaps_outer" {
 }
 
 # hintergrundbild setzen:
-exec feh --bg-scale $(find ~/bg_big -iname '*.jpg' -o -iname '*.png'|sort -R|head -n1)
+exec feh --bg-scale "$(find ~/bg_big -iname '*.jpg' -o -iname '*.png'|sort -R|head -n1)"
 exec ~/.i3/autostart
 
