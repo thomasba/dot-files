@@ -1,0 +1,46 @@
+#!/bin/env python3
+# vim: noexpandtab ts=4 ft=python :
+
+import os
+import re
+import operator
+import PIL.Image
+import PIL.ExifTags
+
+def get_date(filename):
+	img = PIL.Image.open(filename)
+	d = re.match(r'(?P<year>\d{4}):(?P<month>\d{2}):(?P<day>\d{2}) (?P<hour>\d{2}):(?P<minute>\d{2}):(?P<second>\d{2})', img._getexif()[306])
+	if d is None:
+		return None
+	img.close()
+	return "%04d%02d%02d_%02d%02d%02d" % (int(d["year"]), int(d["month"]), int(d["day"]), int(d["hour"]), int(d["minute"]), int(d["second"]))
+
+def print_new_filename(number, date, name, original_filename):
+	ext = original_filename.split('.')[-1]
+	return "%s_%s_%03d.%s" % (date, name, number, ext.lower())
+
+def rename_file_and_nef(number, date, name, original_filename):
+	ext = original_filename.split('.')[-1].lower()
+	plain = ".".join(original_filename.split('.')[:-1])
+	name = "%s_%s_%03d" % (date, name, number)
+	print("Handling file %s..." % (original_filename, ))
+	print("  Renaming from '%s' to '%s'" % (original_filename, name + "." + ext))
+	os.rename(os.path.join(os.getcwd(), original_filename), os.path.join(os.getcwd(), name + "." + ext))
+	if os.path.isfile(os.path.join(os.getcwd(), plain + ".NEF")):
+		print("  Renaming from '%s' to '%s'" % (plain + ".NEF", name + ".nef"))
+		os.rename(os.path.join(os.getcwd(), plain + ".NEF"), os.path.join(os.getcwd(), name + ".nef"))
+	elif os.path.isfile(os.path.join(os.getcwd(), plain + ".nef")):
+		print("  Renaming from '%s' to '%s'" % (plain + ".nef", name + ".nef"))
+		os.rename(os.path.join(os.getcwd(), plain + ".nef"), os.path.join(os.getcwd(), name + ".nef"))
+
+if PIL.ExifTags.TAGS[306] != "DateTime":
+	print("Warning: EXIF index for DateTime changed!")
+	exit(2)
+
+images = [[get_date(os.path.join(os.getcwd(), f)), f] for f in os.listdir(os.getcwd()) if os.path.isfile(os.path.join(os.getcwd(), f)) and re.search(r'\.jpg$', f, flags=re.IGNORECASE)]
+images = sorted(images, key=operator.itemgetter(0, 1))
+
+i = 1
+for img in images:
+	rename_file_and_nef(i, img[0], "thomas", img[1])
+	i += 1
