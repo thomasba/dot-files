@@ -6,4 +6,5 @@ lxpolkit &
 start-pulseaudio-x11 &
 gnome-keyring-daemon --start --daemonize --components=pkcs11,secrets,ssh,gpg &
 xset r rate 400 30
+nm-applet &
 sleep 2 && xmodmap ~/.i3/speedswapper &
