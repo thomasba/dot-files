@@ -2,14 +2,14 @@
 
 " vim config dir path
 if has("win32")
-	let g:vimdir=expand('~\vimfiles\')
+	let g:vimdir=expand('~/vimfiles/')
 else
 	let g:vimdir=expand('~/.vim/')
 endif
 
 " load plugins using vundle {{{
 if has("win32")
-	source ~\vimfiles\plug.vim
+	source ~/vimfiles/plug.vim
 else
 	source ~/.vim/plug.vim
 endif
@@ -236,6 +236,11 @@ command! CleanUpObfuscatedCode call CleanUpObfuscatedCode()
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'badwolf'
+if has("win32")
+	" Workaround on windows (bad performance)
+	let g:airline_extensions = []
+	let g:airline_highlighting_cache = 1
+endif
 set laststatus=2
 
 let mapleader = "-"
