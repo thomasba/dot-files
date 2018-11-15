@@ -1,0 +1,81 @@
+#!/bin/env python3
+# vim: set noexpandtab tabstop=4 ft=python :
+"""
+A script moving pictures from one folder to subfolders (depending on the date they are taken)
+"""
+
+import os
+import argparse
+import re
+import shutil
+import PIL.Image
+import PIL.ExifTags
+
+def get_date(filename):
+	"""
+	Read EXIF data from a file and return a string containing "yyyymmdd"
+
+	:param filename: The files name
+	"""
+	image = PIL.Image.open(filename)
+	image_exif = image._getexif()
+	if not image_exif:
+		return None
+	matches = re.match(r'(?P<year>\d{4}):(?P<month>\d{2}):(?P<day>\d{2})', image_exif[306])
+	image.close()
+	if matches is None:
+		return None
+	return "%04d%02d%02d" % (int(matches["year"]), int(matches["month"]), int(matches["day"]))
+
+def main():
+	"""
+	Move files to a directory by date
+
+	:param args: CLI arguments
+	"""
+	# verify we're getting the correct data :)
+	if PIL.ExifTags.TAGS[306] != "DateTime":
+		print("ERROR: EXIF index for DateTime changed!")
+		exit(2)
+	# parse arguments
+	parser = argparse.ArgumentParser(description="Move/copy pictures to subfolders")
+	parser.add_argument("--source", "-s", action="store", default=os.getcwd(), metavar="<path>", \
+			help="The source directory (default = current)", dest="source")
+	parser.add_argument("--destination", "-d", action="store", default=os.getcwd(), metavar="<path>", \
+			help="The destination directory (default = current)", dest="destination")
+	parser.add_argument("--copy", "-c", action="store_true", dest="copy_files", \
+			help="Copy the files insted of moving them")
+	args = parser.parse_args()
+	# settings
+	source_directory = args.source
+	destination_directory = args.destination
+	copy_files = args.copy_files
+	# iterate through directory
+	for filename in os.listdir(source_directory):
+		if os.path.isfile(os.path.join(source_directory, filename)) and \
+				re.search(r'\.jpg$', filename, flags=re.IGNORECASE):
+			date = get_date(os.path.join(source_directory, filename))
+			if date is None:
+				print("WARNING: No EXIF data for file '%s'" % (filename))
+				continue
+			directory = os.path.join(destination_directory, date)
+			# create directory if it not exists
+			if os.path.exists(directory):
+				if not os.path.isdir(directory):
+					print("'%s' exists but is no directory!" % (date))
+					continue
+			else:
+				print("Creating directory '%s'" % (directory))
+				os.mkdir(directory)
+			# copy or move file
+			if copy_files:
+				print("Copy file '%s' to '%s'" % (filename, date))
+				shutil.copy2(os.path.join(source_directory, filename), \
+						os.path.join(destination_directory, date, filename))
+			else:
+				print("Moving file '%s' to '%s'" % (filename, date))
+				os.rename(os.path.join(source_directory, filename), \
+						os.path.join(destination_directory, date, filename))
+
+if __name__ == "__main__":
+	main()
