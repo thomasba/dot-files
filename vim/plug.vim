@@ -42,6 +42,7 @@ Plug 'niklasl/vim-rdf'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'chrisbra/csv.vim'
 Plug 'vim-scripts/icalendar.vim'
+Plug 'cespare/vim-toml'
 
 " Files
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'  }

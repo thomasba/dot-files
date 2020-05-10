@@ -1,9 +1,9 @@
 #!/bin/bash
 # shut down computer after checking running applications
 
-read -p "Press enter to shutdown computer '$(hostname)'"
+read -r -p "Press enter to shutdown computer '$(hostname)'"
 
-PROGRAMS=("spotify" "firefox" "thunderbird" "ssh" "scp" "rsync" "pacman" "nemo" "vim" "gvim")
+PROGRAMS=("firefox" "thunderbird" "ssh" "scp" "rsync" "pacman" "nemo" "vim" "gvim" "pacman" "vivaldi-bin")
 
 READY=0
 
@@ -18,11 +18,19 @@ while [ $READY -eq 0 ] ; do
 			READY=0
 		done
 	done
+	STATUS="$(dropbox-cli status)"
+	while [ "$STATUS" != "Up to date" -a "$STATUS" != "Connecting..." -a "$STATUS" != "Dropbox isn't running!" ] ; do
+		echo "Dropbox is still syncing!"
+		sleep 5
+		READY=0
+		STATUS="$(dropbox-cli status)"
+	done
 done
 
-poweroff
 
-if [ $? -ne 0 ] ; then
+if poweroff; then
+	echo "Goodbye :)"
+else
 	echo "Higher privileges are required!"
 	if type sudo > /dev/null ; then
 		sudo poweroff
