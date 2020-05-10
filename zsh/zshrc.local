@@ -14,6 +14,20 @@ case "$MTYPE" in
 	"PC")
 		source $HOME/.zsh/commands-pc
 		;;
+	"wlm")
+		source $HOME/.zsh/commands-server
+		# ssh-agent configuration
+		if [ -z "$(pgrep ssh-agent)" ]; then
+			rm -rf /tmp/ssh-*
+			eval $(ssh-agent -s) > /dev/null
+		else
+			export SSH_AGENT_PID=$(pgrep ssh-agent)
+			export SSH_AUTH_SOCK=$(find /tmp/ssh-* -name 'agent.*')
+		fi
+		if [[ "$(ssh-add -l)" == "The agent has no identities." ]]; then
+			ssh-add
+		fi
+		;;
 	"SERVER")
 		source $HOME/.zsh/commands-server
 		;;
@@ -29,6 +43,8 @@ fi
 
 if [ -f "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] ; then
 	source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif [ -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] ; then
+	source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 else
 	printf "-!- zsh-syntax-highlighting not installed!"
 fi
