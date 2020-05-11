@@ -267,4 +267,7 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+let g:pymode_python = 'python3'
+set modeline
+
 com! FormatJSON %!python -m json.tool

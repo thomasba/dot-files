@@ -72,6 +72,7 @@ Plug 'chase/vim-ansible-yaml', { 'for': 'yaml' }
 Plug 'jamessan/vim-gnupg'
 Plug 'docunext/closetag.vim', { 'for': ['html','php']  }
 Plug 'lilydjwg/colorizer', { 'for': ['html','php','css','sass','scss'] }
+Plug 'lepture/vim-jinja', { 'for': ['html'] }
 Plug 'Townk/vim-autoclose'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'chrisbra/vim-diff-enhanced'
