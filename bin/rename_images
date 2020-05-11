@@ -1,19 +1,38 @@
 #!/bin/env python3
 # vim: noexpandtab ts=4 ft=python :
 
+"""
+Rename all jpg images in the current folder. If there is a NEF image with the same same,
+rename it as well.
+"""
+
 import os
 import re
+import datetime
 import operator
 import PIL.Image
 import PIL.ExifTags
 
 def get_date(filename):
-	img = PIL.Image.open(filename)
-	d = re.match(r'(?P<year>\d{4}):(?P<month>\d{2}):(?P<day>\d{2}) (?P<hour>\d{2}):(?P<minute>\d{2}):(?P<second>\d{2})', img._getexif()[306])
-	if d is None:
+	"""
+	Get date and time from image exif tag and return string with format %Y%m%d_%H%M%S
+	"""
+	try:
+		img = PIL.Image.open(filename)
+		e = img._getexif()
+		if 306 in e:
+			index = 306
+		elif 36867 in e:
+			index = 36867
+		elif 36838 in e:
+			index = 36868
+		d = datetime.datetime.strptime(e[index], "%Y:%m:%d %H:%M:%S")
+		img.close()
+		return d.strftime("%Y%m%d_%H%M%S")
+	except Exception as e:
+		print(e)
+		exit(2)
 		return None
-	img.close()
-	return "%04d%02d%02d_%02d%02d%02d" % (int(d["year"]), int(d["month"]), int(d["day"]), int(d["hour"]), int(d["minute"]), int(d["second"]))
 
 def print_new_filename(number, date, name, original_filename):
 	ext = original_filename.split('.')[-1]
@@ -37,10 +56,10 @@ if PIL.ExifTags.TAGS[306] != "DateTime":
 	print("Warning: EXIF index for DateTime changed!")
 	exit(2)
 
-images = [[get_date(os.path.join(os.getcwd(), f)), f] for f in os.listdir(os.getcwd()) if os.path.isfile(os.path.join(os.getcwd(), f)) and re.search(r'\.jpg$', f, flags=re.IGNORECASE)]
+images = [[get_date(os.path.join(os.getcwd(), f)), f] for f in os.listdir(os.getcwd()) if os.path.isfile(os.path.join(os.getcwd(), f)) and re.search(r'\.jpe?g$', f, flags=re.IGNORECASE)]
 images = sorted(images, key=operator.itemgetter(0, 1))
 
 i = 1
 for img in images:
-	rename_file_and_nef(i, img[0], "thomas", img[1])
+	rename_file_and_nef(i, img[0], "mfg-who-am-i", img[1])
 	i += 1

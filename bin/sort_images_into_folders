@@ -27,6 +27,20 @@ def get_date(filename):
 		return None
 	return "%04d%02d%02d" % (int(matches["year"]), int(matches["month"]), int(matches["day"]))
 
+def create_directory(directory):
+	"""
+	Try to create the directory return False when there’s already something there that’s not a
+	directory
+	"""
+	if os.path.exists(directory):
+		if not os.path.isdir(directory):
+			print("'%s' exists but is no directory!" % (directory))
+			return False
+	else:
+		print("Creating directory '%s'" % (directory))
+		os.mkdir(directory)
+	return True
+
 def main():
 	"""
 	Move files to a directory by date
@@ -45,11 +59,15 @@ def main():
 			help="The destination directory (default = current)", dest="destination")
 	parser.add_argument("--copy", "-c", action="store_true", dest="copy_files", \
 			help="Copy the files insted of moving them")
+	parser.add_argument("--existing", "-e", action="store", dest="existing_files", \
+			choises=["ask", "skip", "overwrite"], default="ask", \
+			help="What to do with existing files")
 	args = parser.parse_args()
 	# settings
 	source_directory = args.source
 	destination_directory = args.destination
 	copy_files = args.copy_files
+	existing_files = args.existing_files
 	# iterate through directory
 	for filename in os.listdir(source_directory):
 		if os.path.isfile(os.path.join(source_directory, filename)) and \
@@ -60,15 +78,21 @@ def main():
 				continue
 			directory = os.path.join(destination_directory, date)
 			# create directory if it not exists
-			if os.path.exists(directory):
-				if not os.path.isdir(directory):
-					print("'%s' exists but is no directory!" % (date))
-					continue
-			else:
-				print("Creating directory '%s'" % (directory))
-				os.mkdir(directory)
+			if not create_directory(directory):
+				continue
 			# copy or move file
-			if copy_files:
+			write_file = True
+			if os.path.exists(os.path.join(destination_directory, date, filename)) and \
+					existing_files != "overwrite":
+				write_file = False
+				if existing_files == "ask":
+					overwrite = input("File '%s' exists! Overwrite? [yn]: ")
+					while overwrite not in ["y", "n"]:
+						overwrite = input("File '%s' exists! Overwrite? [yn]: ")
+					write_file = overwrite == "y"
+			if not write_file:
+				print("Skipping file '%s'" % (filename))
+			elif copy_files:
 				print("Copy file '%s' to '%s'" % (filename, date))
 				shutil.copy2(os.path.join(source_directory, filename), \
 						os.path.join(destination_directory, date, filename))

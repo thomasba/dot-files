@@ -42,10 +42,12 @@ Plug 'niklasl/vim-rdf'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'chrisbra/csv.vim'
 Plug 'vim-scripts/icalendar.vim'
+Plug 'cespare/vim-toml'
 Plug 'robertbasic/vim-hugo-helper'
 
 " Files
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'  }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 Plug 'kien/ctrlp.vim'
 if executable('ag')
 	Plug 'rking/ag.vim'
