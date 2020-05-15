@@ -10,7 +10,7 @@ let python_highlight_space_errors = 1
 let python_highlight_builtins = 1
 
 " Enable jumping to imports with gf
-python << EOF
+python3 << EOF
 import os
 import sys
 import vim
