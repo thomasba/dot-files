@@ -97,4 +97,7 @@ Plug 'elzr/vim-json'
 "Plugin 'terryma/vim-multiple-cursors'
 Plug 'mbbill/undotree', { 'on': ['UndotreeToggle', 'UndotreeShow'] }
 
+" games ...
+Plug 'johngrib/vim-game-snake', { 'on': 'VimGameSnake' }
+
 call plug#end()
