@@ -1,9 +1,9 @@
 #!/bin/bash
 
-dropbox-cli start &
+dropbox start &
 lxpolkit &
 
-start-pulseaudio-x11 &
+#start-pulseaudio-x11 &
 gnome-keyring-daemon --start --daemonize --components=pkcs11,secrets,ssh,gpg &
 xset r rate 400 30
 nm-applet &

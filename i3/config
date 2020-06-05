@@ -6,7 +6,7 @@
 # later. It is recommended to set this option to allow i3 to open a terminal
 # containing the introduction on first start.
 # set $terminal /usr/bin/lilyterm -s
-set $terminal /usr/bin/evilvte
+set $terminal /usr/local/bin/evilvte
 set $mod Mod4
 
 client.background #000000
