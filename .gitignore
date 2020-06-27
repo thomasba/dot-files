@@ -1,2 +1,7 @@
 opt
 vim/bundle
+vim/autoload/plug.vim
+vim/.netrwhist
+vim/plugged
+vim/spell
+zsh/zsh-autosuggestions
