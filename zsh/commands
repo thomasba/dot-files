@@ -15,6 +15,7 @@ alias g='gcc -Wall -pedantic'
 alias ga='gcc -Wall -pedantic -ansi'
 alias logo='exit'
 alias logout='exit'
+alias exif-remove-regions='exiftool -keywords= -subject= -RegionName= -HierarchicalSubject= -RegionAreaH= -RegionAreaW= -RegionAreaX= -RegionAreaY= -RegionType= -RegionRotation= -RegionAppliedToDimensionsH= -RegionAppliedToDimensionsUnit= -RegionAppliedToDimensionsW='
 
 alias -g NUL="> /dev/null 2>&1"
 alias -g V="|vim -"
