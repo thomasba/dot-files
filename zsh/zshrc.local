@@ -53,3 +53,7 @@ fi
 zstyle ':completion:*:*:kill:*:processes' command "ps -u $USER -o pid,user,comm,args -w -w"
 
 export EDITOR='vim'
+
+if [ ! -f '/var/run/crond.pid' ] ; then
+	sudo /etc/init.d/cron start
+fi
