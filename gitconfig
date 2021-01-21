@@ -8,3 +8,5 @@
 	ui = true
 [pull]
 	rebase = false
+[gpg]
+	program = gpg
