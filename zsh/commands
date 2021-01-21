@@ -13,6 +13,7 @@ alias ll=' ls -al --group-directories-first'
 alias c="clear"
 alias g='gcc -Wall -pedantic'
 alias ga='gcc -Wall -pedantic -ansi'
+alias mtr='mtr -o "LSD NABWV M"'
 alias logo='exit'
 alias logout='exit'
 alias exif-remove-regions='exiftool -keywords= -subject= -RegionName= -HierarchicalSubject= -RegionAreaH= -RegionAreaW= -RegionAreaX= -RegionAreaY= -RegionType= -RegionRotation= -RegionAppliedToDimensionsH= -RegionAppliedToDimensionsUnit= -RegionAppliedToDimensionsW='
