@@ -37,7 +37,7 @@ Plug 'plasticboy/vim-markdown', {'for': ['markdown', 'mkd.markdown'] }
 " Plug 'vim-scripts/JSON.vim', {'for': 'json'}
 Plug 'PProvost/vim-ps1', {'for': 'ps1'}
 Plug 'kchmck/vim-coffee-script', {'for': ['coffee', 'markdown', 'mkd.markdown']}
-Plug 'vim-scripts/cisco.vim'
+Plug 'momota/cisco.vim'
 Plug 'niklasl/vim-rdf'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'chrisbra/csv.vim'
@@ -82,6 +82,7 @@ Plug 'matze/vim-move'
 Plug 'sk1418/Join'
 Plug 'actionshrimp/vim-xpath'
 Plug 'vim-scripts/po.vim', { 'for': 'po' }
+Plug 'kynan/dokuvimki', {'on': 'DokuVimKi'}
 " Interact with tmux from vim
 Plug 'benmills/vimux'
 " git

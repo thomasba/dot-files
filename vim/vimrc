@@ -271,3 +271,11 @@ let g:pymode_python = 'python3'
 set modeline
 
 com! FormatJSON %!python -m json.tool
+
+function! DokuWiki()
+	if filereadable($HOME.'/.vimrc.dokuvimki')
+		source $HOME/.vimrc.dokuvimki
+	endif
+	:DokuVimKi
+endfunction
+command! DokuWiki call DokuWiki()
