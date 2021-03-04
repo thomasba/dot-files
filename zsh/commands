@@ -1,14 +1,9 @@
 # aliases
 
-alias ta='tmux -2 attach'
-alias tmux='tmux -2'
 alias cd..='cd ..'
 alias :q='exit'
 alias e='vim'
 alias :e='vim'
-alias j='java'
-alias jj='java -jar'
-alias jc='javac'
 alias ll=' ls -al --group-directories-first'
 alias c="clear"
 alias g='gcc -Wall -pedantic'
@@ -30,6 +25,21 @@ whothefuckisusingport() {
 }
 
 # functions
+
+function tm() {
+	NUM="$(\tmux ls 2>/dev/null|wc -l)"
+	if [ "$NUM" -eq 0 ] ; then
+		\tmux -2
+	elif [ "$NUM" -eq 1 ] ; then
+		\tmux -2 attach
+	else
+		echo "Found more than one tmux session!"
+		\tmux ls
+		echo -n "Which session do you want to attach to? "
+		read CHOICE
+		\tmux -2 attach -t "$CHOICE"
+	fi
+}
 
 function extract () {
   if [ -f "$1" ] ; then
@@ -109,9 +119,6 @@ function printtime() {
 function unix() {
     php -r "date_default_timezone_set('Europe/Berlin');echo date('Y-m-d, H:i:s',$1).PHP_EOL;"
 }
-function 0l3() {
-	curl "http://0l3.de/api/create.plain/$1"
-}
 cp_p()
 {
 	strace -q -ewrite cp -- "${1}" "${2}" 2>&1 \
@@ -129,15 +136,6 @@ cp_p()
 			}
 		}
 		END { print "" }' total_size=$(stat -c '%s' "${1}") count=0
-}
-# lima-city
-
-function limaftp() {
-	if [ $# -ne 2 ] ; then
-		echo "Usage: $0 <username> <password>"
-		return 2
-	fi
-	lftp -u "$1:$2" "$1.lima-ftp.de"
 }
 
 # systemctl

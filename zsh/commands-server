@@ -4,7 +4,7 @@ stty ixoff -ixon
 
 BROWSER='elinks'
 
-alias maillog='sudo journalctl -u dovecot -u postgrey -u postfix -u opendkim'
+alias maillog='sudo journalctl -u dovecot -u postgrey -u postfix -u opendkim -u opendmarc -u policyd-spf'
 alias chk-starttls='openssl s_client -starttls smtp -crlf -connect'
 
 function dist_file {
