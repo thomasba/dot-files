@@ -6,7 +6,7 @@
 # later. It is recommended to set this option to allow i3 to open a terminal
 # containing the introduction on first start.
 # set $terminal /usr/bin/lilyterm -s
-set $terminal /usr/local/bin/evilvte
+set $terminal /usr/bin/evilvte
 set $mod Mod4
 
 client.background #000000
@@ -120,6 +120,8 @@ bindsym Mod4+p exec rofi-pass
 bindsym Mod4+i exec teiler
 bindsym Mod4+v exec rofi -show run
 bindsym Mod4+space exec rofi -show run
+bindsym Mod1+Tab exec rofi -show window
+bindsym Mod4+s exec rofi -show ssh -terminal $terminal
 
 bindsym Mod4+comma split vertical
 bindsym Mod4+period split horizontal

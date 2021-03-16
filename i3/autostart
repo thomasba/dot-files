@@ -12,6 +12,8 @@ gnome-keyring-daemon --start --daemonize --components=pkcs11,secrets,ssh,gpg &
 xset r rate 400 30
 nm-applet &
 xautolock -secure  -time 15 -locker 'i3lock -b -d' &
-sleep 2 && xmodmap ~/.i3/speedswapper &
+#sleep 2 && xmodmap ~/.i3/speedswapper &
 # disable touchpad
-xinput set-prop 11 "Device Enabled" 0
+for id in $(xinput list | sed -rn 's/.*touchpad.*id=([0-9]+).*/\1/ip'); do
+	xinput set-prop "$id" "Device Enabled" 0
+done
