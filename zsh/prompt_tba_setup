@@ -161,7 +161,7 @@ prompt_tba_setup () {
 	zle -N zle-keymap-select
 
 
-	PS1="$parens┌─[ $user_color%n$text@$hostname%m$reset $parens]─($reset$time_color%D{%Y-%m-%d %H:%M}$reset$parens)─￫ \
+	PS1="$parens┌─[ $user_color%n$text@$hostname%m$reset $parens]─($reset$time_color%D{%Y-%m-%d %H:%M}$reset$parens)─→ \
 $reset$time_color%\${PR_PWDLEN}<...<%~%<<\
 $reset\
 
@@ -169,9 +169,9 @@ $parens├─($red\${IS_SSH_CONN}%(?.. E:%?)$green\${BAT_CHRG}$yellow\${BAT_LOW}
 \${GITBRANCH} $parens)$reset\
 
 $parens└─[%(!.#.$)]${text} "
-	PS2="$parens└─[$reset $parens%_$reset $parens]──￫$reset "
-	PS3="$parens╶─[$text?#$parens]──￫$reset "
-	PS4="$parens├──￫$reset "
+	PS2="$parens└─[$reset $parens%_$reset $parens]──→$reset "
+	PS3="$parens╶─[$text?#$parens]──→$reset "
+	PS4="$parens├──→$reset "
 	prompt_opts=(cr subst percent)
 }
 
