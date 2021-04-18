@@ -1,10 +1,4 @@
-# This configuration uses Mod4 and Mod3. Make sure they are mapped properly using
-# xev(1)
-# and xmodmap(1). Usually, Mod4 is Alt (Alt_L) and Mod3 is Windows (Super_L)
-
-# Tell i3 about your preferred terminal. You can refer to this as $terminal
-# later. It is recommended to set this option to allow i3 to open a terminal
-# containing the introduction on first start.
+# vim: set ft=i3config :
 # set $terminal /usr/bin/lilyterm -s
 set $terminal /usr/bin/evilvte
 set $mod Mod4
@@ -12,166 +6,166 @@ set $mod Mod4
 client.background #000000
 
 # ISO 10646 = Unicode
-font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+#font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+font pango:Cascadia Code PL 9
 
 # new windows with border only
 new_window 1pixel
 
-# named workspaces
-#workspace 1 chat
-#workspace 2 www
-#workspace 3 mail
+# Use Mouse+Mod to drag floating windows to their wanted position
+floating_modifier $mod
 
-# Use Mouse+Mod4 to drag floating windows to their wanted position
-floating_modifier Mod4
+# Fullscreen (Mod+f)
+bindsym $mod+f fullscreen
 
-# Fullscreen (Mod4+f)
-bindcode Mod4+41 fullscreen
+# Stacking (Mod+h)
+bindsym $mod+h layout stacking
 
-# Stacking (Mod4+h)
-bindcode Mod4+43 layout stacking
+# Tabbed (Mod+w)
+bindsym $mod+w layout tabbed
 
-# Tabbed (Mod4+w)
-bindcode Mod4+25 layout tabbed
+# Default (Mod+e)
+bindsym $mod+e layout default
 
-# Default (Mod4+e)
-bindcode Mod4+26 layout default
+# Toggle tiling/floating of the current window (Mod+t)
+bindsym $mod+t floating toggle
 
-# Toggle tiling/floating of the current window (Mod4+t)
-bindsym Mod4+t floating toggle
+# Focus (Mod+ArrowKeys)
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
 
-# Go into the tiling layer / floating layer, depending on whether
-# the current window is tiling / floating (Mod4+t)
-#bindcode Mod4+28 focus mode_toggle
+# Snap (Mod+Control+ArrowKeys)
+#bindsym $mod+Control+Left layout stacking
+#bindsym $mod+Control+Down layout stacking
+#bindsym $mod+Control+Up layout stacking
+#bindsym $mod+Control+Right layout stacking
 
-# Focus (Mod4+j/k/l/;)
-bindsym Mod4+Left focus left
-bindsym Mod4+Down focus down
-bindsym Mod4+Up focus up
-bindsym Mod4+Right focus right
+# Move (Mod+Shift+ArrowKeys)
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
 
-# Focus Container (Mod3+j/k/l/;)
-#bindsym Mod3+Left focus left
-#bindsym Mod3+Down focus down
-#bindsym Mod3+Up focus up
-#bindsym Mod3+Right focus right
+set $workspace1 "1: Chat 🗨"
+set $workspace2 "2: Browser 🌍"
+set $workspace3 "3: Mail ✉"
+set $workspace4 "4"
+set $workspace5 "5"
+set $workspace6 "6"
+set $workspace7 "7"
+set $workspace8 "8"
+set $workspace9 "9"
+set $workspace10 "10: Music ♫"
 
-# Snap (Mod4+Control+j/k/l/;)
-bindsym Mod4+Control+Left layout stacking
-bindsym Mod4+Control+Down layout stacking
-bindsym Mod4+Control+Up layout stacking
-bindsym Mod4+Control+Right layout stacking
+# Workspaces (Mod+1/2/…)
+bindcode $mod+10 workspace $workspace1
+bindcode $mod+11 workspace $workspace2
+bindcode $mod+12 workspace $workspace3
+bindcode $mod+13 workspace $workspace4
+bindcode $mod+14 workspace $workspace5
+bindcode $mod+15 workspace $workspace6
+bindcode $mod+16 workspace $workspace7
+bindcode $mod+17 workspace $workspace8
+bindcode $mod+18 workspace $workspace9
+bindcode $mod+19 workspace $workspace10
 
-# Move (Mod4+Shift+j/k/l/;)
-bindsym Mod4+Shift+Left move left
-bindsym Mod4+Shift+Down move down
-bindsym Mod4+Shift+Up move up
-bindsym Mod4+Shift+Right move right
-
-# Move Container (Mod3+Shift+j/k/l/;)
-#bindsym Mod3+Shift+Left focus parent; move left
-#bindsym Mod3+Shift+Down focus parent; move down
-#bindsym Mod3+Shift+Up focus parent; move up
-#bindsym Mod3+Shift+Right focus parent; move right
-
-
-# Workspaces (Mod4+1/2/…)
-bindcode Mod4+10 workspace 1
-bindcode Mod4+11 workspace 2
-bindcode Mod4+12 workspace 3
-bindcode Mod4+13 workspace 4
-bindcode Mod4+14 workspace 5
-bindcode Mod4+15 workspace 6
-bindcode Mod4+16 workspace 7
-bindcode Mod4+17 workspace 8
-bindcode Mod4+18 workspace 9
-bindcode Mod4+19 workspace 10
-
-bindsym Mod4+x move workspace to output right
-bindsym Mod4+a workspace back_and_forth
+bindsym $mod+x move workspace to output right
+bindsym $mod+shift+x move workspace to output left
+bindsym $mod+a workspace back_and_forth
 
 # Move to Workspaces
-bindcode Mod4+Shift+10 move workspace 1
-bindcode Mod4+Shift+11 move workspace 2
-bindcode Mod4+Shift+12 move workspace 3
-bindcode Mod4+Shift+13 move workspace 4
-bindcode Mod4+Shift+14 move workspace 5
-bindcode Mod4+Shift+15 move workspace 6
-bindcode Mod4+Shift+16 move workspace 7
-bindcode Mod4+Shift+17 move workspace 8
-bindcode Mod4+Shift+18 move workspace 9
-bindcode Mod4+Shift+19 move workspace 10
+bindcode $mod+Shift+10 move workspace $workspace1
+bindcode $mod+Shift+11 move workspace $workspace2
+bindcode $mod+Shift+12 move workspace $workspace3
+bindcode $mod+Shift+13 move workspace $workspace4
+bindcode $mod+Shift+14 move workspace $workspace5
+bindcode $mod+Shift+15 move workspace $workspace6
+bindcode $mod+Shift+16 move workspace $workspace7
+bindcode $mod+Shift+17 move workspace $workspace8
+bindcode $mod+Shift+18 move workspace $workspace9
+bindcode $mod+Shift+19 move workspace $workspace10
 
-# Mod4+Enter starts a new terminal
-bindcode Mod4+36 exec $terminal
+# assign progs to workspaces
+assign [class="TelegramDesktop"] → $workspace1
+assign [class="discord"] → $workspace1
+assign [class="Firefox"] → $workspace2
+assign [class="aurora"] → $workspace2
+assign [class="Opera"] → $workspace2
+assign [class="Midori"] → $workspace2
+assign [class="Chromium"] → $workspace2
+assign [class="vivaldi-stable"] → $workspace2
+assign [class="Vivaldi-stable"] → $workspace2
+assign [class="Thunderbird"] → $workspace3
+# floating mode for specific programs
+for_window [class="XTerm"] floating enable
+for_window [class="feh"] floating enable
+for_window [class="xsane"] floating enable
+
+# Mod+Enter starts a new terminal
+bindcode $mod+36 exec $terminal
 
 # playerctl config
 bindcode 171 exec /usr/bin/playerctl next
 bindcode 172 exec /usr/bin/playerctl play-pause
 bindcode 173 exec /usr/bin/playerctl previous
 bindcode 174 exec /usr/bin/playerctl stop
+#bindsym XF86AudioPlay exec /usr/bin/playerctl play-pause
 bindsym XF86Calculator exec /usr/bin/playerctl next
 
-# Mod4+Shift+q kills the current client
-bindsym Mod4+Shift+q kill
-bindsym Mod4+Shift+k kill client
+# Mod+Shift+q kills the current client
+bindsym $mod+Shift+q kill
+bindsym $mod+Shift+k kill client
 
-bindsym Mod4+p exec rofi-pass
-bindsym Mod4+i exec teiler
-bindsym Mod4+v exec rofi -show run
-bindsym Mod4+space exec rofi -show run
+bindsym $mod+p exec rofi-pass
+bindsym $mod+i exec teiler
+bindsym $mod+v exec rofi -show run
+bindsym $mod+space exec rofi -show run
 bindsym Mod1+Tab exec rofi -show window
-bindsym Mod4+s exec rofi -show ssh -terminal $terminal
+bindsym $mod+s exec rofi -show ssh -terminal $terminal
 
-bindsym Mod4+comma split vertical
-bindsym Mod4+period split horizontal
+bindsym $mod+comma split vertical
+bindsym $mod+period split horizontal
 
-#bind Mod4+26 exec /usr/bin/thunar
+#bind Mod+26 exec /usr/bin/thunar
 
-# Mod4+Shift+e exits i3
-bindcode Mod4+Shift+26 exit
-#bind Mod4+Shift+26 exec scrot
+# Mod+Shift+e exits i3
+bindcode $mod+Shift+26 exit
+#bind $mod+Shift+26 exec scrot
 bindsym XF86Launch1 exec $terminal
-bindsym Mod4+c exec bashrun --toggle
 
-bindsym Mod4+b border toggle
-bindsym Mod4+o open
+bindsym $mod+b border toggle
+bindsym $mod+o open
 
-bindsym Mod4+Shift+r restarts i3 inplace
+bindsym $mod+Shift+r restarts i3 inplace
 
-bindsym Mod4+Shift+w reload
+bindsym $mod+Shift+w reload
 
-# assign progs to workspaces
 
-assign [class="Firefox"] → 2
-assign [class="aurora"] → 2
-assign [class="Opera"] → 2
-assign [class="Midori"] → 2
-assign [class="Chromium"] → 2
-assign [class="vivaldi-stable"] → 2
-assign [class="Vivaldi-stable"] → 2
-assign [class="Thunderbird"] → 3
-for_window [class="XTerm"] floating enable
-for_window [class="feh"] floating enable
-for_window [class="xsane"] floating enable
+#bindsym $mod+l exec i3lock -b -d
+bindsym $mod+l exec ~/.i3/lock.sh
 
-bindsym $mod+l exec i3lock -b -d
-
-bindcode Mod4+Control+10 exec ~/bin/volume.sh 10
-bindcode Mod4+Control+11 exec ~/bin/volume.sh 20
-bindcode Mod4+Control+12 exec ~/bin/volume.sh 30
-bindcode Mod4+Control+13 exec ~/bin/volume.sh 40
-bindcode Mod4+Control+14 exec ~/bin/volume.sh 50
-bindcode Mod4+Control+15 exec ~/bin/volume.sh 60
-bindcode Mod4+Control+16 exec ~/bin/volume.sh 70
-bindcode Mod4+Control+17 exec ~/bin/volume.sh 80
-bindcode Mod4+Control+18 exec ~/bin/volume.sh 90
-bindcode Mod4+Control+19 exec ~/bin/volume.sh 100
+bindcode $mod+Control+10 exec ~/bin/volume.sh 10
+bindcode $mod+Control+11 exec ~/bin/volume.sh 20
+bindcode $mod+Control+12 exec ~/bin/volume.sh 30
+bindcode $mod+Control+13 exec ~/bin/volume.sh 40
+bindcode $mod+Control+14 exec ~/bin/volume.sh 50
+bindcode $mod+Control+15 exec ~/bin/volume.sh 60
+bindcode $mod+Control+16 exec ~/bin/volume.sh 70
+bindcode $mod+Control+17 exec ~/bin/volume.sh 80
+bindcode $mod+Control+18 exec ~/bin/volume.sh 90
+bindcode $mod+Control+19 exec ~/bin/volume.sh 100
 
 bindcode 122 exec ~/bin/volume.sh -5
 bindcode 123 exec ~/bin/volume.sh +5
 
-bindsym Mod4+g exec gvim
+bindcode $mod+61 exec ~/bin/volume.sh -5
+bindcode $mod+35 exec ~/bin/volume.sh +5
+
+bindcode 121 exec ~/bin/volume.sh toggle-mute
+
+bindsym $mod+g exec gvim
 
 mode "resize" {
     # These bindings trigger as soon as you enter the resize mode
@@ -179,17 +173,17 @@ mode "resize" {
     # when pressing left, the window is resized so that it has
     # more space on its left
     # same bindings, but for the arrow keys
-	bindsym Left        resize shrink left  5 px
-	bindsym Shift+Left  resize grow   left  5 px
+	bindsym Left        resize shrink left  10 px
+	bindsym Shift+Left  resize grow   left  10 px
 
-	bindsym Down        resize shrink down  5 px
-	bindsym Shift+Down  resize grow   down  5 px
+	bindsym Down        resize shrink down  10 px
+	bindsym Shift+Down  resize grow   down  10 px
 
-	bindsym Up          resize shrink up    5 px
-	bindsym Shift+Up    resize grow   up    5 px
+	bindsym Up          resize shrink up    10 px
+	bindsym Shift+Up    resize grow   up    10 px
 
-	bindsym Right       resize shrink right 5 px
-	bindsym Shift+Right resize grow   right 5 px
+	bindsym Right       resize shrink right 10 px
+	bindsym Shift+Right resize grow   right 10 px
 
     # back to normal: Enter or Escape
 	bindsym Return mode "default"
@@ -199,8 +193,28 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# colors
+
+set $bg-color              #285577
+set $border-color          #4c7899
+set $inactive-bg-color     #222222
+set $inactive-border-color #333333
+set $text-color            #ffffff
+set $inactive-text-color   #888888
+set $urgent-bg-color       #e53935
+set $indicator-color       #7bbceb
+
+#                        border                  background          text                  indicator
+client.focused           $border-color           $bg-color           $text-color           $indicator-color
+client.unfocused         $inactive-border-color  $inactive-bg-color  $inactive-text-color  $indicator-color
+client.focused_inactive  $inactive-border-color  $inactive-bg-color  $inactive-text-color  $indicator-color
+client.urgent            $urgent-bg-color        $urgent-bg-color    $text-color           $indicator-color
+
+hide_edge_borders both
+
 bar {
-	status_command i3blocks
+	tray_output primary
+	status_command i3blocks -c ~/.i3/i3blocks.conf
 }
 
 bindsym $mod+Shift+g mode "$mode_gaps"
@@ -240,6 +254,6 @@ mode "$mode_gaps_outer" {
 }
 
 # hintergrundbild setzen:
-exec feh --bg-scale "$(find ~/bg_big -iname '*.jpg' -o -iname '*.png'|sort -R|head -n1)"
+exec_always feh --bg-scale "$(find ~/bg_big -iname '*.jpg' -o -iname '*.png'|sort -R|head -n1)"
 exec ~/.i3/autostart
-
+exec picom -D 1 -I 0.05

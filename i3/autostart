@@ -1,18 +1,36 @@
 #!/bin/bash
 
-#dropbox start &
+# polkit
 lxpolkit &
+
+# keyboard
+setxkbmap de
+
+# bluetooth & network
+blueman-applet &
+nm-applet &
+
+# audio
+pulseaudio --start &
+start-pulseaudio-x11 &
+pasystray &
+[ ! -s ~/.config/mpd/pid ] && mpd
+
+# applications
 discord &
 nextcloud &
 telegram-desktop &
+vivaldi-stable &
+thunderbird &
 
-start-pulseaudio-x11 &
-pasystray &
+# keyring
 gnome-keyring-daemon --start --daemonize --components=pkcs11,secrets,ssh,gpg &
+# set rate
 xset r rate 400 30
-nm-applet &
-xautolock -secure  -time 15 -locker 'i3lock -b -d' &
-#sleep 2 && xmodmap ~/.i3/speedswapper &
+# lock screen after 15 minutes
+xautolock -secure  -time 15 -locker '~/.i3/lock.sh' &
+# change caps and esc key
+sleep 2 && xmodmap ~/.i3/speedswapper
 # disable touchpad
 for id in $(xinput list | sed -rn 's/.*touchpad.*id=([0-9]+).*/\1/ip'); do
 	xinput set-prop "$id" "Device Enabled" 0

@@ -34,6 +34,7 @@ Plug 'othree/html5.vim', {'for': ['html','php']}
 Plug 'vim-scripts/bbcode', {'for': 'bbcode'}
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown', {'for': ['markdown', 'mkd.markdown'] }
+Plug 'mboughaba/i3config.vim'
 " Plug 'vim-scripts/JSON.vim', {'for': 'json'}
 Plug 'PProvost/vim-ps1', {'for': 'ps1'}
 Plug 'kchmck/vim-coffee-script', {'for': ['coffee', 'markdown', 'mkd.markdown']}

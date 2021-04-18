@@ -1,22 +1,24 @@
 #!/bin/bash
 
-CARD=$(LANG=en_US aplay -l|sed -n 's/^\(Karte\|card\) \([0-9]\+\): .*G930.*$/\2/p')
-CH="PCM"
+CARDS="$(pactl list sinks short|cut -f2)"
+if [ "$(pactl list sinks short|grep RUNNING$|wc -l)" -ne 0 ] ; then
+	CARDS="$(pactl list sinks short|grep RUNNING$|cut -f2)"
+fi
 
 if [ $# -eq 0 ] ; then
 	echo "Usage: $0 ±<int>"
 	echo "    ±<int>    change volume relative"
 	echo "    <int>     set volume to <int>"
 	exit 1
-elif [[ $1 = +[0-9]* ]] || [[ $1 = -[0-9]* ]] ; then 
-	volume="$1"
-	#amixer -q -c 0 -- sset Master playback $(calc $(amixer sget Master | sed -rn 's/^.*Front Right: [^\[]*\[([0-9]+)%\].*$/\1/p')$volume)%
-	amixer -c "$CARD" set $CH "$(echo "$1"|sed -e 's/^\(.\)\(.*\)$/\2%\1/')" > /dev/null
-	pkill -RTMIN+1 i3blocks||true
-elif [[ $1 = [0-9]* ]] ; then
-	volume=$1
-	amixer -q -c "$CARD" -- sset $CH playback "$volume%"
-	pkill -RTMIN+1 i3blocks||true
+elif [[ $1 = "toggle-mute" ]] ; then
+	pactl list sinks short | cut -f2 | while read l; do
+		pactl set-sink-mute "$l" toggle
+	done
+elif [[ $1 = [+-][0-9]* ]] || [[ $1 = [0-9]* ]] ; then 
+	for l in $CARDS; do
+		pactl set-sink-volume "$l" $1%
+	done
+	#pkill -RTMIN+1 i3blocks||true
 else
 	echo "Usage: $0 ±<int>"
 	echo "    ±<int>    change volume relative"
