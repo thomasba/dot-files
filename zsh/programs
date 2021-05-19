@@ -1,9 +1,9 @@
 # open files in programms
 
 alias -s dia=dia
-alias -s dvi=okular
-alias -s eps=okular
-alias -s pdf=okular
+alias -s dvi=xreader
+alias -s eps=xreader
+alias -s pdf=xreader
 
 # text files
 alias -s cc=vim
@@ -74,13 +74,13 @@ alias -s wav=mplayer
 alias -s wma=mplayer
 
 # images
-alias -s bmp=mirage
-alias -s gif=mirage
-alias -s jpeg=mirage
-alias -s jpg=mirage
-alias -s png=mirage
-alias -s tiff=mirage
-alias -s tif=mirage
+alias -s bmp=gthumb
+alias -s gif=gthumb
+alias -s jpeg=gthumb
+alias -s jpg=gthumb
+alias -s png=gthumb
+alias -s tiff=gthumb
+alias -s tif=gthumb
 alias -s xcf=gimp
 
 # vim: set ft=zsh :
