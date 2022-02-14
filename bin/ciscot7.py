@@ -59,18 +59,24 @@ def main():
 	parser.add_option('-e', '--encrypt', action='store_true', dest='encrypt', default=False, help='Encrypt password')
 	parser.add_option('-d', '--decrypt', action='store_true', dest='decrypt',default=True, help='Decrypt password. This is the default')
 	parser.add_option('-p', '--password', action='store', dest="password", help='Password to encrypt / decrypt')
+	parser.add_option('-q', '--quotes', action='store_true', dest='quotes', help='Show quotes around passwords ("«" and "»")')
 	parser.add_option('-f', '--file', action='store', dest="file", help='Cisco config file, only for decryption')
 	options, args = parser.parse_args()
 	render_as = "files"
 
+	QUOTE_LEFT = ""
+	QUOTE_RIGHT = ""
+	if(options.quotes):
+		QUOTE_LEFT = "«"
+		QUOTE_RIGHT = "»"
 	#fix issue 1, if encrypt is selected, that takes precedence
 	if (options.encrypt):
 		options.decrypt = False
 	if (options.password is not None):
 		if(options.decrypt):
-			print("Decrypted password: " + decrypt_type7(options.password))
+			print("Decrypted password: " + QUOTE_LEFT + decrypt_type7(options.password) + QUOTE_RIGHT)
 		elif(options.encrypt):
-			print("Encrypted password: " + encrypt_type7(options.password))
+			print("Encrypted password: " + QUOTE_LEFT + encrypt_type7(options.password) + QUOTE_RIGHT)
 	elif (options.file is not None):
 		if(options.decrypt):
 			try:
@@ -79,7 +85,7 @@ def main():
 				for line in f:
 					result = regex.search(line)
 					if(result):
-						print("Decrypted password: " + decrypt_type7(result.group(2)))
+						print("Decrypted password: " + QUOTE_LEFT + decrypt_type7(result.group(2)) + QUOTE_RIGHT)
 			except IOError:
 				print("Couldn't open file: " + options.file)
 		elif(options.encrypt):
@@ -87,10 +93,10 @@ def main():
 	else:
 		if(options.decrypt):
 			password = getpass.getpass("Enter type 7 password:")
-			print("Decrypted password: " + decrypt_type7(password))
+			print("Decrypted password: " + QUOTE_LEFT + decrypt_type7(password) + QUOTE_RIGHT)
 		if(options.encrypt):
 			password = getpass.getpass("Enter password:")
-			print("Encrypted password: " + encrypt_type7(password))
+			print("Encrypted password: " + QUOTE_LEFT + encrypt_type7(password) + QUOTE_RIGHT)
 
 if __name__ == '__main__':
 	main()
