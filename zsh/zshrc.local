@@ -27,6 +27,9 @@ case "$MTYPE" in
 		if [[ "$(ssh-add -l)" == "The agent has no identities." ]]; then
 			ssh-add
 		fi
+		if [ ! -f '/var/run/crond.pid' ] ; then
+			sudo /etc/init.d/cron start
+		fi
 		;;
 	"SERVER")
 		source $HOME/.zsh/commands-server
@@ -45,15 +48,11 @@ if [ -f "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.
 	source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 elif [ -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] ; then
 	source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif [ -f "/opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] ; then
+	source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 else
 	printf "-!- zsh-syntax-highlighting not installed!"
 fi
 
 # completion
 zstyle ':completion:*:*:kill:*:processes' command "ps -u $USER -o pid,user,comm,args -w -w"
-
-export EDITOR='vim'
-
-if [ ! -f '/var/run/crond.pid' ] ; then
-	sudo /etc/init.d/cron start
-fi

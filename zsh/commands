@@ -1,3 +1,32 @@
+# editor
+
+if command -v nvim &> /dev/null; then
+	alias vim=nvim
+	alias vi=nvim
+	export EDITOR='nvim'
+elif command -v vim &> /dev/null; then
+	alias nvim=vim
+	alias vi=vim
+	export EDITOR='vim'
+elif command -v nano &> /dev/null; then
+	alias nvim=nano
+	alias vim=nano
+	alias vi=nano
+	export EDITOR='nano'
+elif command -v mcedit &> /dev/null; then
+	alias nvim=mcedit
+	alias vim=mcedit
+	alias vi=mcedit
+	export EDITOR='mcedit'
+elif command -v vi &> /dev/null; then
+	alias nvim=vi
+	alias vim=vi
+	alias vi=vi
+	export EDITOR='vi'
+fi
+alias e=$EDITOR
+alias :e=$EDITOR
+
 # aliases
 
 alias cd..='cd ..'
