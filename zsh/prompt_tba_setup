@@ -148,6 +148,10 @@ prompt_tba_setup () {
 		if [ -n "$SSH_CONNECTION" ] ; then
 			IS_SSH_CONN=" ⚡"
 		fi
+		IS_VENV=""
+		if [ -n "$VIRTUAL_ENV" ] ; then
+			IS_VENV=" 👻"
+		fi
 	}
 
 	# If I am using vi keys, I want to know what mode I'm currently using.
@@ -166,7 +170,7 @@ $reset$time_color%\${PR_PWDLEN}<...<%~%<<\
 $reset\
 
 $parens├─($red\${IS_SSH_CONN}%(?.. E:%?)$green\${BAT_CHRG}$yellow\${BAT_LOW}$red\${BAT_CRIT}$text\${BAT}\${SCREEN}\${JOBS}\
-\${GITBRANCH} $parens)$reset\
+\${GITBRANCH}\${IS_VENV} $parens)$reset\
 
 $parens└─[%(!.#.$)]${text} "
 	PS2="$parens└─[$reset $parens%_$reset $parens]──→$reset "
