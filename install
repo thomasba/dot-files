@@ -98,6 +98,11 @@ else
 	fi
 fi
 
+# check if fzf is installed:
+if [ -x "$(command -v fzf)" ] ; then
+	cecho red "  ! Please install fzf! "
+fi
+
 
 symlink "$HOME/.zsh" "${MY_PATH}/zsh"
 symlink "$HOME/.zshrc.local" "${MY_PATH}/zsh/zshrc.local"
