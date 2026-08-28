@@ -10,6 +10,11 @@ fi
 source $HOME/.zsh/commands
 source $HOME/.zsh/programs
 source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+if [ -x "$(command -v fzf)" -a -f /usr/share/doc/fzf/examples/key-bindings.zsh ] ; then
+	source /usr/share/doc/fzf/examples/key-bindings.zsh
+else
+	echo "-!- Notice: fzf is not installed."
+fi
 case "$MTYPE" in
 	"PC")
 		source $HOME/.zsh/commands-pc

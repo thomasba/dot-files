@@ -154,6 +154,15 @@ function printtime() {
 function unix() {
     php -r "date_default_timezone_set('Europe/Berlin');echo date('Y-m-d, H:i:s',$1).PHP_EOL;"
 }
+function get_cert() {
+	if [ -n "$1" -a -n "$2" ] ; then
+		openssl x509 -text -noout -in <(echo|openssl s_client -connect "$1" -servername "$2" 2>&1|sed -n '/-----BEGIN CERTIFICATE-----/,/-----END CERTIFICATE-----/p')
+	elif [ -n "$1" ] ; then
+		openssl x509 -text -noout -in <(echo|openssl s_client -connect "$1" 2>&1|sed -n '/-----BEGIN CERTIFICATE-----/,/-----END CERTIFICATE-----/p')
+	else
+		echo "Usage: $0 <host>:<port> [<sni-host>]"
+	fi
+}
 cp_p()
 {
 	strace -q -ewrite cp -- "${1}" "${2}" 2>&1 \
@@ -181,4 +190,17 @@ command -v systemctl > /dev/null && {
 	alias reload='sudo systemctl reload'
 	alias status='sudo systemctl status'
 }
+
+# countdown
+
+countdown() {
+	start="$(( $(date '+%s') + $1))"
+	while [ $start -ge $(date +%s) ]; do
+		time="$(( $start - $(date +%s) ))"
+		printf '%s\r' "$(date -u -d "@$time" +%H:%M:%S)"
+	sleep 0.1
+	done
+	echo -ne '\007'
+}
+
 # vim: ft=zsh :

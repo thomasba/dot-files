@@ -148,9 +148,10 @@ prompt_tba_setup () {
 		if [ -n "$SSH_CONNECTION" ] ; then
 			IS_SSH_CONN=" ⚡"
 		fi
-		IS_VENV=""
+
+		IS_VIRTUAL_ENV=""
 		if [ -n "$VIRTUAL_ENV" ] ; then
-			IS_VENV=" 👻"
+			IS_VIRTUAL_ENV=" 👻"
 		fi
 	}
 
@@ -169,8 +170,13 @@ prompt_tba_setup () {
 $reset$time_color%\${PR_PWDLEN}<...<%~%<<\
 $reset\
 
+<<<<<<< HEAD
 $parens├─($red\${IS_SSH_CONN}%(?.. E:%?)$green\${BAT_CHRG}$yellow\${BAT_LOW}$red\${BAT_CRIT}$text\${BAT}\${SCREEN}\${JOBS}\
 \${GITBRANCH}\${IS_VENV} $parens)$reset\
+=======
+$parens├─($red\${IS_VIRTUAL_ENV}\${IS_SSH_CONN}%(?.. E:%?)$green\${BAT_CHRG}$yellow\${BAT_LOW}$red\${BAT_CRIT}$text\${BAT}\${SCREEN}\${JOBS}\
+\${GITBRANCH} $parens)$reset\
+>>>>>>> a29cf844d58d6fc859e5b37588261e61919281b8
 
 $parens└─[%(!.#.$)]${text} "
 	PS2="$parens└─[$reset $parens%_$reset $parens]──→$reset "

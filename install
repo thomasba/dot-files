@@ -86,7 +86,7 @@ backup_file "$HOME/.zshrc"
 grep grml\.org /etc/zsh/zshrc > /dev/null
 if [ $? -ne 0 ] ; then
 	echo "  + Installing grml ..."
-	wget -O "$HOME/.zshrc" http://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
+	wget -O "$HOME/.zshrc" https://raw.githubusercontent.com/grml/grml-etc-core/master/etc/zsh/zshrc
 	cecho yellow "  ! You might wanna install grml-zsh-config using your packet manager"
 	cecho yellow "  ! and remove the .zshrc file in your home directory. "
 else
@@ -96,6 +96,11 @@ else
 		cecho green "  + Creating empty .zshrc"
 		echo "# empty" > "$HOME/.zshrc"
 	fi
+fi
+
+# check if fzf is installed:
+if [ -x "$(command -v fzf)" ] ; then
+	cecho red "  ! Please install fzf! "
 fi
 
 
@@ -114,7 +119,7 @@ while [ ! "$MTYPE" == "PC" ] && [ ! "$MTYPE" == "SERVER" ] ; do
 	esac
 done
 
-git clone git://github.com/zsh-users/zsh-autosuggestions "$HOME/.zsh/zsh-autosuggestions"
+git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.zsh/zsh-autosuggestions"
 
 cecho green "  + Creating .zshrc.pre ... "
 (
