@@ -17,3 +17,6 @@ lg = lg1
 
 [init]
 	defaultBranch = main
+[maintenance]
+	repo = /home/thomas/git/ioc-feeds
+	repo = /home/thomas/git/sddc-automation
